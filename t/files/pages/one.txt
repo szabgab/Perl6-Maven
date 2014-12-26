@@ -1,0 +1,31 @@
+=title One
+=timestamp 2012-07-04T16:52:02
+=author szabgab
+=keywords arrays, uniq, unique
+=status show
+=index 1
+=comments 1
+=perl5url http://szabgab.com/unique-values-in-an-array-in-perl.html
+=perl5title Unique values in an array in Perl 5
+
+=abstract start
+
+How to get rid of duplicate values in an array in Perl 6?
+
+=abstract end
+
+<h2>Arrays with unique values</h2>
+
+Basically they show various ways how one can take a list
+of values and return a sublist of the same values
+after eliminating the duplicates.
+
+With Perl 6 its quite easy to eliminate duplicate values from a list as there
+is a built-in called <hl>uniq</hl> that will do the job.
+
+<code lang="perl6">
+use v6;
+
+my @duplicates = (1, 1, 2, 5, 1, 4, 3, 2, 1);
+say @duplicates.perl;           # Array.new(1, 1, 2, 5, 1, 4, 3, 2, 1)
+</code>

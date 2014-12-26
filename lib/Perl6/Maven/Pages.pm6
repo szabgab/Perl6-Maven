@@ -33,10 +33,11 @@ method process_pages() {
 	my $in_abstract = 0;
 
 	my @files = rdir("$.source_dir/pages");
-	debug('process pages');
+	#debug('process pages');
 
 	for @files -> $tmpl {
 		next if $tmpl !~~ m/\.txt$/;
+		#debug("File $tmpl");
 
 		my $fh = open "$.source_dir/pages/$tmpl", :r;
 		my %params = (
@@ -49,6 +50,7 @@ method process_pages() {
 		);
 		my $in_code = 0;
 		for $fh.lines -> $line {
+			#debug("Line $line");
 			if $line ~~ m/^\=(\w+) \s+ (.*)/ {
 				my ($field, $value) = $0, $1;
 				#say $field;
