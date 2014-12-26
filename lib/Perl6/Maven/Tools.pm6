@@ -29,7 +29,7 @@ sub process_template($template, $outfile, %params) is export {
 
 	say "processing template $template to $outfile";
 	my $fh = open "templates/$template", :r;
-	my $tmpl = $fh.slurp;
+	my $tmpl = $fh.slurp-rest;
 	my $output = Template::Mojo.new($tmpl).render(%params);
 
 	save_file($outfile, $output);
