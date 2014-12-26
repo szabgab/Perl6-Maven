@@ -1,0 +1,22 @@
+% my (%h) = @_;
+<%= Template::Mojo.new(slurp "templates/include/header.tmpl").render(%h); %>
+
+<h1><TMPL_VAR title></h1>
+
+
+<ul>
+  % for  %h<keywords>.values -> $k {
+   <li><%= $k<word> %>
+     <ul>
+       % for $k<entries>.values -> $e {
+         <li><%= $e<src> %>: <a href="<%= $e<url> %>"><%= $e<title> %></a></li>
+       % }
+     </ul>
+   </li>
+  % }
+</ul>
+
+
+
+<%= Template::Mojo.new(slurp "templates/include/footer.tmpl").render(%h); %>
+

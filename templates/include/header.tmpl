@@ -1,0 +1,95 @@
+% my (%h) = @_;
+<html>
+<head>
+<link rel="stylesheet" href="/style.css" type="text/css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/bootstrap/css/bootstrap.css" rel="stylesheet">
+<style>
+body {
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  font-size: 15px;
+}
+pre {
+  font-size: 15px;
+}
+</style>
+<link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="/bootstrap/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bootstrap/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bootstrap/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bootstrap/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="/bootstrap/ico/apple-touch-icon-57-precomposed.png">
+
+
+<title><%= %h<title> %></title>
+% if %h<description> {
+  <meta name="description" content="<%= %h<description> %>">
+% }
+% if %h<author> {
+  <meta name="author" content="<%= %h<author> %>">
+% }
+<link href="http://perl6maven.com/atom" rel="alternate" type="application/atom+xml" title ="Perl 6 Maven" />
+
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/">Perl 6 Maven</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="/tutorial/">Tutorial</a></li>
+<!--
+              <li><a href="/perl6-training-course">Training</a></li>
+              <li><a href="/projects">Projects</a></li>
+              <li><a href="/authors">Authors</a></li>
+-->
+              <li><a href="/perl6-tricks-and-treats-newsletter">Newsletter</a></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li><a href="/index">Index</a></li>
+              <li><input id="typeahead" type="text" data-provide="typeahead" data-items="4" style="margin-top:6px; height:27px"></li>
+              <li><a href="/archive">Archive</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/atom" rel="alternate" type="application/atom+xml"><img
+                   src="/img/feed-icon16x16.png" alt=""
+                   style="vertical-align:middle;border:0"/></a>
+              </li>
+
+            </ul>
+
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span1">
+    <img src="/img/camelia-logo.png" alt="Camelia" />
+
+<!-- Modal start -->
+<!-- used for the result set when there are more than one results -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+<!-- Modal end -->
+
+
+    </div>
+    <div class="span8">
+
+

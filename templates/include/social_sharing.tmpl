@@ -1,0 +1,19 @@
+% my (%h) = @_;
+
+% if %h<comments> {
+  <script>reddit_url='<%= %h<permalink> %>'</script>
+  <script>reddit_title='<%= %h<title> %>'</script>
+  <script type="text/javascript" src="http://reddit.com/button.js?t=2"></script>
+% }
+% if %h<comments> {
+  <a href="http://twitter.com/share" class="twitter-share-button"
+  data-text="<%= %h<title> %>" data-url="<%= %h<permalink> %>" data-count="vertical" data-via="perlmaven">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js">
+  </script>
+% }
+% if %h<comments> {
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  <g:plusone size="tall" href="<%= %h<permalink> %>"></g:plusone>
+% }
+
+

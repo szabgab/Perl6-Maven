@@ -1,0 +1,16 @@
+% my (%h) = @_;
+<%= Template::Mojo.new(slurp "templates/include/header.tmpl").render(%h); %>
+<h1><%= %h<title> %></h1>
+
+% for %h<pages>.values -> $p {
+<h2><a href="<%= $p<url> %>"><%= $p<title> %></a></h2>
+  <p>
+  <%= $p<abstract> %>
+  <br>
+  <a href="<%= $p<url> %>"><%= $p<title> %></a>
+  </p>
+  <hr>
+% }
+
+<%= Template::Mojo.new(slurp "templates/include/footer.tmpl").render(%h); %>
+

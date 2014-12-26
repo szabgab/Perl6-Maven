@@ -1,0 +1,2 @@
+time perl6 -Ilib script/generate.p6 --outdir=/home/gabor/tmp/perl6maven/ --pages=/home/gabor/work/perl6maven.com
+

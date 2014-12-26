@@ -1,0 +1,42 @@
+% my (%h) = @_;
+<%= Template::Mojo.new(slurp "templates/include/header.tmpl").render(%h); %>
+
+<%= Template::Mojo.new(slurp "templates/include/top_navigation.tmpl").render(%h); %>
+
+<h1><%= %h<title> %></h1>
+
+<%= %h<abstract> %>
+
+<ul class="unstyled">
+% for %h<kw>.values -> $k {
+  <li style="display: inline"><button class="btn btn-mini btn-primary kw-button"
+     type="button" value="<%= $k<keyword> %>"><%= $k<keyword> %></button></li>
+% }
+</ul>
+<%= Template::Mojo.new(slurp "templates/include/alert.tmpl").render(%h); %>
+
+
+<%= %h<content> %>
+
+<%= Template::Mojo.new(slurp "templates/include/newsletter.tmpl").render(%h); %>
+% if %h<author_img> {
+   <img src="/img/<%= %h<author_img> %>" alt="<%= %h<author_name> %>" /><br />
+% }
+
+% if %h<google_profile_link> {
+   Written by <a href="<%= %h<google_profile_link> %>?rel=author"><%= %h<author_name> %></a><br />
+% }
+
+% if %h<date> {
+  <hr>
+  <p>
+  Published on <%= %h<date> %>
+  </p>
+% }
+
+<%= Template::Mojo.new(slurp "templates/include/bottom_navigation.tmpl").render(%h); %>
+
+<%= Template::Mojo.new(slurp "templates/include/disqus.tmpl").render(%h); %>
+
+
+<%= Template::Mojo.new(slurp "templates/include/footer.tmpl").render(%h); %>

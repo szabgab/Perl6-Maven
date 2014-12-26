@@ -1,0 +1,14 @@
+% my (%h) = @_;
+<hr />
+
+<%= Template::Mojo.new(slurp "templates/include/top_navigation.tmpl").render(%h); %>
+<p>
+% if %h<toc> {
+  <a class="btn" href="<%= %h<toc> %>">Table of Contents</a>
+% }
+
+% if %h<index> {
+  <div class="pull-right">
+  <a class="btn" href="<%= %h<index> %>">Index</a>
+  </div>
+% }
