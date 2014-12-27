@@ -84,7 +84,10 @@ method create_main() {
 	my @front;
 	my $count;
 	for self.archived_pages -> $p {
-		next if %$p<abstract> eq '';
+		if %$p<abstract> eq '' {
+			warning("Skipping page '%$p<url>' from front-page due to lack of abstract");
+			next;
+		}
 		$count++;
 		@front.push($p);
 		last if $count >= $FRONT_PAGE_LIMIT;

@@ -14,6 +14,9 @@ sub set_outdir($d) is export {
 sub debug is export {
 	say 'DEBUG: ', @_; # if $*ENV<DEBUG>;
 }
+sub warning is export {
+	say 'WARNING: ', @_; # if $*ENV<DEBUG>;
+}
 
 sub rdir($path) is export {
 	my @things = dir($path).map({ $_.basename });
