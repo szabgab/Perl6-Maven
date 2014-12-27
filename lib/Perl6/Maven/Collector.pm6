@@ -7,7 +7,6 @@ use JSON::Tiny;
 
 my @pages;
 my %.indexes;
-my $FRONT_PAGE_LIMIT = 4;  # TODO move to config
 
 
 # indexes is a global hash of all the indexes
@@ -90,7 +89,7 @@ method create_main() {
 		}
 		$count++;
 		@front.push($p);
-		last if $count >= $FRONT_PAGE_LIMIT;
+		last if $count >= config<front_page_limit>;
 	}
 
 	my %params = (
