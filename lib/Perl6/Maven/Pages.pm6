@@ -7,6 +7,7 @@ use Perl6::Maven::Collector;
 has $.source_dir;
 has @.pages;
 has %.authors;
+has $.outdir;
 
 
 method save_pages() {
@@ -124,7 +125,7 @@ method read_pages() {
 			%params<kw>.push({ keyword => $k, url => %params<permalink> , title => %params<title> });
 		}
 
-		%params<url> = $outfile;
+		%params<url> = "$.outdir$outfile";
 		if not %params<status> {
 			debug("Skipping. No status in '$tmpl'");
 			next;

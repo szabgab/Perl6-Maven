@@ -1,6 +1,6 @@
-class Perl6::Maven::Slides;
+use Perl6::Maven::Pages;
+class Perl6::Maven::Slides is Perl6::Maven::Pages;
 
-has $.file;
 has %.slides;
 
 use Perl6::Maven::Tools;
@@ -9,7 +9,8 @@ use Perl6::Maven::Tools;
 # AFAIK There is no real YAML reader for Perl 6 yet, so this implements the subset we use.
 method read_yml() {
 	# temporary hard-coding
-	my $fh = open $.file, :r;
+	my $file = "$.source_dir/pages.yml";
+	my $fh = open $file, :r;
 	my $id;
 	for $fh.lines -> $line {
 		#if $line ~~ /^\- id\: ([\w\-]+)$/ {
@@ -32,7 +33,7 @@ method read_yml() {
 			next;
 		}
 	
-		die "Line could not be recognized in $.file <$line>";
+		die "Line could not be recognized in $file <$line>";
 	}
 }
 

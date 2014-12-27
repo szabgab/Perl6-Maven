@@ -37,12 +37,14 @@ multi MAIN(
 
 
 	my %index;
-	my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors);
+	my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors, outdir => '');
 	$pages.read_pages;
 	$pages.save_pages;
 
-	my $slides = Perl6::Maven::Slides.new(file => "$indir/pages/tutorial/pages.yml");
+	my $slides = Perl6::Maven::Slides.new(source_dir => "$indir/pages/tutorial", authors => $authors.authors, outdir => 'tutorial/');
 	$slides.read_yml;
+	$slides.read_pages;
+	$slides.save_pages;
 	$slides.save_indexes();
 
 	Perl6::Maven::Collector.create_main();
