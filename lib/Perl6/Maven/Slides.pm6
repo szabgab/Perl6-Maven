@@ -26,7 +26,7 @@ method read_yml() {
 		}
 
 		if $line ~~ /^<space>*\-<space>(.*)/ {
-			%.slides{$id}<pages>.push("$/[0]");
+			%.slides{$id}<pages>.push({ id => "$/[0]" });
 			next;
 		}
 	
