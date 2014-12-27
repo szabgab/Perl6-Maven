@@ -2,7 +2,7 @@ The code generating the http://perl6maven.com/ site.
 
 In order to build the pages
 
-    * Build Rakudo Star (2014.09 worked)
+    * Build Rakudo Star (2014.12.1 worked)  http://perl6maven.com/tutorial/perl6-installing-rakudo
     * git clone https://github.com/szabgab/perl6maven.com.git
     * git clone https://github.com/szabgab/Perl6-Maven.git       (this repository)
     * cd Perl6-Maven
