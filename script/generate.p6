@@ -1,10 +1,12 @@
 #!/usr/bin/env perl6
 use v6;
 
+use lib 'lib';
+
 use Perl6::Maven::Tools;
 use Perl6::Maven::Pages;
 use Perl6::Maven::Collector;
-
+use Perl6::Maven::Slides;
 
 multi MAIN(Bool :$help!) {
 	say 'no param' if  not $help;
@@ -35,6 +37,28 @@ multi MAIN(
          $p.run;
  	}
 
+	;
+	my $s = Perl6::Maven::Slides.new(file => "$indir/pages/tutorial/pages.yml");
+	$s.read_yml;
+	my @chapters;
+	for $s.slides.keys -> $id {
+		#debug("ID $id");
+		for $s.slides{$id}<pages>.list -> $p {
+			#say $p.perl;
+			#say "   $p<id>";
+			$p<title> = "Title of $p<id>";
+		}
+		process_template('slides_chapter.tmpl', "tutorial/$id", { title => $s.slides{$id}<title>, pages => $s.slides{$id}<pages>, content => '' });
+		$s.slides{$id}<id> = $id;
+		@chapters.push($s.slides{$id});
+	}
+	my %data = (
+		title => "The Perl Maven's Perl 6 Tutorial",
+		chapters => @chapters,
+		content => ''
+	);
+
+	process_template('slides_toc.tmpl', "tutorial/toc", %data);
  
  	Perl6::Maven::Collector.create_index();
  	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());

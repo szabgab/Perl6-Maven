@@ -1,0 +1,24 @@
+% my (%h) = @_;
+<%= Template::Mojo.new(slurp "templates/include/header.tmpl").render(%h); %>
+
+<%= Template::Mojo.new(slurp "templates/include/top_navigation.tmpl").render(%h); %>
+
+<h1><%= %h<title> %></h1>
+
+<ol>
+% for %h<chapters>.list -> $c {
+   <li><a href="<%= $c<id> %>"><%= $c<title> %></a>
+    <ol>
+    % for $c<pages>.list -> $p {
+      <li><a href="<%= $p<id> %>"><%= $p<title> %></a></li>
+    % }
+    </ol>
+  </li>
+
+% }
+</ol>
+
+
+<%= Template::Mojo.new(slurp "templates/include/bottom_navigation.tmpl").render(%h); %>
+
+<%= Template::Mojo.new(slurp "templates/include/footer.tmpl").render(%h); %>

@@ -1,0 +1,20 @@
+% my (%h) = @_;
+<%= Template::Mojo.new(slurp "templates/include/header.tmpl").render(%h); %>
+
+<%= Template::Mojo.new(slurp "templates/include/top_navigation.tmpl").render(%h); %>
+
+<h1><%= %h<title> %></h1>
+
+% if %h<pages> {
+  <ol>
+  % for %h<pages>.values -> $p {
+     <li><a href="<%= $p<id> %>"><%= $p<title> %></a></li>
+  % }
+  </ol>
+% }
+
+<%= %h<content> %>
+
+<%= Template::Mojo.new(slurp "templates/include/bottom_navigation.tmpl").render(%h); %>
+
+<%= Template::Mojo.new(slurp "templates/include/footer.tmpl").render(%h); %>
