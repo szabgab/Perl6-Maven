@@ -10,7 +10,7 @@ sub set_outdir($d) is export {
 }
 
 sub debug is export {
-	say @_; # if $*ENV<DEBUG>;
+	say 'DEBUG: ', @_; # if $*ENV<DEBUG>;
 }
 
 sub rdir($path) is export {
@@ -27,7 +27,7 @@ sub process_template($template, $outfile, %params) is export {
 	%params<description> //= '';
 	%params<author> //= '';
 
-	say "processing template $template to $outfile";
+	debug("processing template $template to $outfile");
 	my $fh = open "templates/$template", :r;
 	my $tmpl = $fh.slurp-rest;
 	my $output = Template::Mojo.new($tmpl).render(%params);
@@ -37,7 +37,7 @@ sub process_template($template, $outfile, %params) is export {
 }
 
 sub save_file($outfile, $content) is export {
-	say "DEBUG: save_file $outfile";
+	debug("save_file $outfile");
 	my $file = "$outdir/" ~ $outfile;
 	mkpath dirname $file;
 	my $out = open $file, :w;
