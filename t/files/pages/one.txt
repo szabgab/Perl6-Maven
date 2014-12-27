@@ -3,7 +3,7 @@
 =author szabgab
 =keywords arrays, uniq, unique
 =status show
-=index 1
+=archive 1
 =comments 1
 =perl5url http://szabgab.com/unique-values-in-an-array-in-perl.html
 =perl5title Unique values in an array in Perl 5

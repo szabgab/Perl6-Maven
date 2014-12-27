@@ -28,7 +28,7 @@ is_deeply $p.authors, {
 
 $p.process_pages;
 is_deeply $p.pages[0].keys.sort,
-    ("abstract", "author", "author_img", "author_name", "comments", "content", "date", "google_profile_link", "index",
+    ("abstract",  "archive", "author", "author_img", "author_name", "comments", "content", "date", "google_profile_link",
     "keywords", "kw", "perl5title", "perl5url", "permalink", "status", "timestamp", "title", "url"), 'keys';
 
 is $p.pages[0]<title>, 'One', 'title';
