@@ -37,7 +37,7 @@ method process_pages() {
 
 	for @files -> $tmpl {
 		next if $tmpl !~~ m/\.txt$/;
-		#debug("File $tmpl");
+		debug("Source file $tmpl");
 
 		my $fh = open "$.source_dir/pages/$tmpl", :r;
 		my %params = (
@@ -131,11 +131,17 @@ method process_pages() {
 		}
 
 		%params<url> = $outfile;
-		if %params<status> and %params<status> eq 'show' {
-			@.pages.push(%params.item);
-			Perl6::Maven::Collector.add_page('page', %params);
+		if not %params<status> {
+			debug("Skipping. No status in '$tmpl'");
+			next;
+		}
+		if %params<status> ne 'show' {
+			debug("Skipping Status is '%params<status>' in '$tmpl'");
+			next;
 		}
 
+		@.pages.push(%params.item);
+		Perl6::Maven::Collector.add_page('page', %params);
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. %params<keywords>.elems -1  -> $i {
 			my $k = %params<keywords>[$i];
