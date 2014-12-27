@@ -71,16 +71,19 @@ method create_sitemap() {
 	return $xml;
 }
 
+method archived_pages() {
+	return @pages.grep({ $_.<archive> }).sort({ $^b<timestamp> cmp %$^a<timestamp> });
+}
+
 method create_archive() {
-	my @p = @pages.grep({ $_.<archive> }).sort({ $^b<timestamp> cmp %$^a<timestamp> });
+	my @p = self.archived_pages();
 	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.item });
 }
 
 method create_main() {
 	my @front;
 	my $count;
-	for @pages -> $p {
-		next if not $p<archive>;
+	for self.archived_pages -> $p {
 		next if %$p<abstract> eq '';
 		$count++;
 		@front.push($p);
@@ -88,7 +91,7 @@ method create_main() {
 	}
 
 	my %params = (
-		title => 'Perl 6 Maven',
+		title => config<site_title>,
 		pages => @front.item,
 	);
 	process_template('main.tmpl', 'main', %params);
@@ -96,7 +99,8 @@ method create_main() {
 }
 
 method create_atom_feed() {
-	my ($latest) = @pages.sort({ %$^a<timestamp> cmp %$^b<timestamp> });
+	my @archived_pages = self.archived_pages;
+	my $latest = @archived_pages[0];
 
 	my $url = config<url>;
 	my $atom = Perl6::Maven::Atom.new(
@@ -112,7 +116,7 @@ method create_atom_feed() {
 #		},
 
 	my $count;
-	for @pages -> $p {
+	for @archived_pages -> $p {
 		next if not $p<archive>;
 		next if %$p<abstract> eq '';
 		$count++;
