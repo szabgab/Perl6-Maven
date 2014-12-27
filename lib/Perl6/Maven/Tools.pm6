@@ -100,7 +100,7 @@ sub tree($dir) is export {
 sub read_config($dir) is export {
 	my $fh = open "$dir/config.ini", :r;
 	for $fh.lines -> $line {
-		my ($key, $value) = $line.split(':');
+		my ($key, $value) = $line.split('=');
 		%config{$key} = $value;
 	}
 	#debug(%config.perl);

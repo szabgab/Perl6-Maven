@@ -117,7 +117,7 @@ method read_pages() {
 			%params<content> ~= "$row\n";
 		}
 		my $outfile = substr($tmpl, 0, chars($tmpl) - 4);
-		%params<permalink> = "{config<url>}/$outfile";
+		%params<permalink> = "{config<url>}/$.outdir$outfile";
 
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. %params<keywords>.elems -1  -> $i {
