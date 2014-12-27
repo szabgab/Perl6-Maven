@@ -23,7 +23,7 @@ method read_pages() {
 
 	my $in_abstract = 0;
 
-	my @files = rdir("$.source_dir");
+	my @files = dir("$.source_dir").map({ $_.basename });;
 	#debug('process pages');
 
 	for @files -> $tmpl {
