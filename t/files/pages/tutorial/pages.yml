@@ -1,0 +1,9 @@
+- id: perl6-introduction
+  title: title Introduction to Perl 6
+  pages:
+    - perl6-getting-started
+    - perl6-other-resources
+- id: perl6-scalars
+  title: First steps in Perl 6
+  pages:
+    - perl6-hello-world-scalar
