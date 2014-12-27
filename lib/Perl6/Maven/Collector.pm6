@@ -10,12 +10,9 @@ my %.indexes;
 
 
 # indexes is a global hash of all the indexes
-# in which we included the 'src' key mapping to the
-# name of the source.
-method add_index($src, %index) {
+method add_index(%index) {
 	for %index.keys.sort( { lc $_ } ) -> $k {
 		my $h = %index{$k}.flat[0];
-		$h{'src'} = $src;
 		%.indexes{$k}.push( $h );
 	}
 	return;
@@ -42,7 +39,7 @@ method create_index() {
 # for now we only push the list here but don't use
 # it, later, this should be the source for the index
 # and the other meta files
-method add_page($src, %data) {
+method add_page(%data) {
 	@pages.push(%data.item);
 }
 

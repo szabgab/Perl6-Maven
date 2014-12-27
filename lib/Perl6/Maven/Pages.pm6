@@ -136,7 +136,7 @@ method read_pages() {
 		}
 
 		@.pages.push(%params.item);
-		Perl6::Maven::Collector.add_page('page', %params);
+		Perl6::Maven::Collector.add_page(%params);
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. %params<keywords>.elems -1  -> $i {
 			my $k = %params<keywords>[$i];
@@ -144,7 +144,7 @@ method read_pages() {
 		}
 	}
 
-	Perl6::Maven::Collector.add_index('pages', %index);
+	Perl6::Maven::Collector.add_index(%index);
 	return;
 }
 

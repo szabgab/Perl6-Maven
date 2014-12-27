@@ -9,7 +9,7 @@
    <li><%= $k<word> %>
      <ul>
        % for $k<entries>.values -> $e {
-         <li><%= $e<src> %>: <a href="<%= $e<url> %>"><%= $e<title> %></a></li>
+         <li><a href="<%= $e<url> %>"><%= $e<title> %></a></li>
        % }
      </ul>
    </li>
