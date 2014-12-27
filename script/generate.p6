@@ -12,14 +12,14 @@ multi MAIN(Bool :$help!) {
 }
 
 multi MAIN(
-	Str  :$pages   is copy,
+	Str  :$indir   is copy,
 	Str  :$outdir!,
     ) {
 	usage('avoid updirs') if $outdir ~~ m/\.\./;
 
 	# If the user tries to pass --outdir ~/tmp/perl6maven the code will receive the ~ without the shell expanding it
 	# Let's avoid creating a directory called ~
-	for $pages, $outdir -> $dir {
+	for $indir, $outdir -> $dir {
 		usage("You cannot pass ~ in the path '$dir'") if $dir ~~ m/\~/;
 	}
 
@@ -30,10 +30,11 @@ multi MAIN(
  	set_outdir($outdir);
  
  	my %index;
- 	if $pages {
-         my $p = Perl6::Maven::Pages.new(source_dir => $pages, url => $url);
+ 	if $indir {
+         my $p = Perl6::Maven::Pages.new(source_dir => $indir, url => $url);
          $p.run;
  	}
+
  
  	Perl6::Maven::Collector.create_index();
  	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());
@@ -45,7 +46,7 @@ sub usage($msg?) {
 	print "
 Usage: $*PROGRAM_NAME
    --outdir /path/to/output/directory
-   --pages  /path/to/source/of/pages
+   --indir  /path/to/source/of/pages
 ";
 
 	exit;
