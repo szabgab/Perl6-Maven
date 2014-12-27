@@ -11,6 +11,11 @@ In order to build the pages
 It took 1:38 min to generate all the pages using Rakudo Star 2014.09 on MacBook Air
 
 
+To run all the test try:
+
+prove -e 'perl6 -Ilib' t/
+
+
 TODO: Generic web site related
 -------------------------------
 
