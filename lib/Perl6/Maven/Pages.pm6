@@ -23,14 +23,14 @@ method read_pages() {
 
 	my $in_abstract = 0;
 
-	my @files = rdir("$.source_dir/pages");
+	my @files = rdir("$.source_dir");
 	#debug('process pages');
 
 	for @files -> $tmpl {
 		next if $tmpl !~~ m/\.txt$/;
 		debug("Source file $tmpl");
 
-		my $fh = open "$.source_dir/pages/$tmpl", :r;
+		my $fh = open "$.source_dir/$tmpl", :r;
 		my %params = (
 			content   => '',
 			title     => '',

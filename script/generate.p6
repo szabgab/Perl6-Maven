@@ -39,9 +39,9 @@ multi MAIN(
 	$slides.read_yml;
  
  	my %index;
-    my $pages = Perl6::Maven::Pages.new(source_dir => $indir, authors => $authors.authors);
+    my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors);
 	$pages.read_pages;
-	#$pages.save_pages;
+	$pages.save_pages;
 
 	$slides.save();
 
