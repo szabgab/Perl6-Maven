@@ -57,4 +57,7 @@ method save() {
 
 	process_template('slides_toc.tmpl', "tutorial/toc", %data);
 }
- 
+
+# vim: ft=perl6
+# vim:noexpandtab
+

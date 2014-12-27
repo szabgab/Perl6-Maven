@@ -17,8 +17,8 @@ multi MAIN(Bool :$help!) {
 multi MAIN(
 	Str  :$indir   is copy,
 	Str  :$outdir!,
-    ) {
- 	usage("--indir was missing") if not $indir;
+	) {
+	usage("--indir was missing") if not $indir;
 	usage('avoid updirs') if $outdir ~~ m/\.\./;
 
 	read_config($indir);
@@ -32,14 +32,14 @@ multi MAIN(
 	}
 
 	mkpath $outdir;
- 	shell("cp -r files/* $outdir"); # TODO Perl based recursive copy!
- 	set_outdir($outdir);
+	shell("cp -r files/* $outdir"); # TODO Perl based recursive copy!
+	set_outdir($outdir);
 
 	my $slides = Perl6::Maven::Slides.new(file => "$indir/pages/tutorial/pages.yml");
 	$slides.read_yml;
- 
- 	my %index;
-    my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors);
+
+	my %index;
+	my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors);
 	$pages.read_pages;
 	$pages.save_pages;
 
@@ -64,4 +64,4 @@ Usage: $*PROGRAM_NAME
 	exit;
 }
 # vim: ft=perl6
-
+# vim:noexpandtab

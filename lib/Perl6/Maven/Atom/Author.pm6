@@ -15,4 +15,6 @@ method Str() {
 	return $xml;
 }
 
+# vim: ft=perl6
+# vim:noexpandtab
 

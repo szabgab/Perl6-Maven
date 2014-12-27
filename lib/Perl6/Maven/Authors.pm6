@@ -15,3 +15,6 @@ method read_authors() {
 	return;
 }
 
+# vim: ft=perl6
+# vim:noexpandtab
+
