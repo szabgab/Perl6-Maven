@@ -3,6 +3,8 @@ module Perl6::Maven::Tools;
 use Template::Mojo;
  
 my $SEPARATOR = '/'; # TODO should be OS dependent
+
+my %config;
  
 my $outdir;
 sub set_outdir($d) is export {
@@ -24,6 +26,8 @@ sub rdir($path) is export {
 
 
 sub process_template($template, $outfile, %params) is export {
+	%params<site_title> = %config<site_title>;
+
 	%params<description> //= '';
 	%params<author> //= '';
 
@@ -89,6 +93,20 @@ sub tree($dir) is export {
 	}
 	return @files;
 }
+
+sub read_config($dir) is export {
+	my $fh = open "$dir/config.ini", :r;
+	for $fh.lines -> $line {
+		my ($key, $value) = $line.split(':');
+		%config{$key} = $value;
+	}
+	#debug(%config.perl);
+}
+
+sub config() is export {
+	return %config;
+}
+
 
 # vim: ft=perl6
 # vim:noexpandtab

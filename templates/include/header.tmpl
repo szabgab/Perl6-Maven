@@ -30,7 +30,7 @@ pre {
 % if %h<author> {
   <meta name="author" content="<%= %h<author> %>">
 % }
-<link href="http://perl6maven.com/atom" rel="alternate" type="application/atom+xml" title ="Perl 6 Maven" />
+<link href="http://perl6maven.com/atom" rel="alternate" type="application/atom+xml" title ="<%= %h<site_title> %>" />
 
 </head>
 <body>
@@ -42,7 +42,7 @@ pre {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="/">Perl 6 Maven</a>
+          <a class="brand" href="/"><%= %h<site_title> %></a>
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/tutorial/">Tutorial</a></li>

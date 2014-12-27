@@ -47,7 +47,10 @@ method process_pages() {
 			abstract  => '',
 			keywords  => [],
 			kw        => [],
+			archive   => config<archive>,
+			comments  => config<comments>,
 		);
+
 		my $in_code = 0;
 		for $fh.lines -> $line {
 			#debug("Line $line");
@@ -72,8 +75,8 @@ method process_pages() {
 					when 'status' {
 						%params<status> = $value.Str;
 					}
-					when 'index' {
-						%params<index> = $value.Str;
+					when 'archive' {
+						%params<archive> = $value.Str;
 					}
 					when 'perl5url' {
 						%params<perl5url> = $value.Str;
@@ -195,7 +198,7 @@ method create_atom_feed() {
 
 	my $count;
 	for @.pages -> $p {
-		next if not $p<index>;
+		next if not $p<archive>;
 		next if %$p<abstract> eq '';
 		$count++;
 		my $entry = Perl6::Maven::Atom::Entry.new(

@@ -19,6 +19,8 @@ multi MAIN(
     ) {
 	usage('avoid updirs') if $outdir ~~ m/\.\./;
 
+	read_config($indir);
+
 	# If the user tries to pass --outdir ~/tmp/perl6maven the code will receive the ~ without the shell expanding it
 	# Let's avoid creating a directory called ~
 	for $indir, $outdir -> $dir {
