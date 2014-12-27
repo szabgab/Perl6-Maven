@@ -3,6 +3,8 @@ class Perl6::Maven::Slides;
 has $.file;
 has %.slides;
 
+use Perl6::Maven::Tools;
+
 
 # AFAIK There is no real YAML reader for Perl 6 yet, so this implements the subset we use.
 method read_yml() {
@@ -34,4 +36,25 @@ method read_yml() {
 	}
 }
 
+method save() {
+	my @chapters;
+	for %.slides.keys -> $id {
+		#debug("ID $id");
+		for %.slides{$id}<pages>.list -> $p {
+			#say $p.perl;
+			#say "   $p<id>";
+			$p<title> = "Title of $p<id>";
+		}
+		process_template('slides_chapter.tmpl', "tutorial/$id", { title => %.slides{$id}<title>, pages => %.slides{$id}<pages>, content => '' });
+		%.slides{$id}<id> = $id;
+		@chapters.push(%.slides{$id});
+	}
+	my %data = (
+		title => "The Perl Maven's Perl 6 Tutorial",
+		chapters => @chapters,
+		content => ''
+	);
 
+	process_template('slides_toc.tmpl', "tutorial/toc", %data);
+}
+ 
