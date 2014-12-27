@@ -68,5 +68,11 @@ method create_sitemap() {
 	return $xml;
 }
 
+method create_archive() {
+	my @p = @pages.sort({ $^b<timestamp> cmp %$^a<timestamp> });
+	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.item });
+}
+
+
 # vim: ft=perl6
 # vim:noexpandtab

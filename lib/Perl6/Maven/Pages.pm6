@@ -21,7 +21,6 @@ method run() {
 	for @.pages -> $p {
 		process_template('page.tmpl', $p<url>, $p);
 	}
-	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @.pages.item });
 
 	return;
 }
@@ -151,7 +150,6 @@ method process_pages() {
 			%index{$k}.push({ url => "/%params<url>" , title => %params<title> });
 		}
 	}
-	@.pages .= sort({ $^b<timestamp> cmp %$^a<timestamp> });
 
 	Perl6::Maven::Collector.add_index('pages', %index);
 	return;

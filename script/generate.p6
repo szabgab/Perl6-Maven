@@ -45,8 +45,9 @@ multi MAIN(
 	$slides.save();
 
 
- 	Perl6::Maven::Collector.create_index();
- 	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());
+	Perl6::Maven::Collector.create_index();
+	Perl6::Maven::Collector.create_archive();
+	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());
 }
 
 sub usage($msg?) {
