@@ -80,6 +80,7 @@ method create_main() {
 	my @front;
 	my $count;
 	for @pages -> $p {
+		next if not $p<archive>;
 		next if %$p<abstract> eq '';
 		$count++;
 		@front.push($p);
