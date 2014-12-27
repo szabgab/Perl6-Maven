@@ -72,7 +72,7 @@ method create_sitemap() {
 }
 
 method create_archive() {
-	my @p = @pages.sort({ $^b<timestamp> cmp %$^a<timestamp> });
+	my @p = @pages.grep({ $_.<archive> }).sort({ $^b<timestamp> cmp %$^a<timestamp> });
 	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.item });
 }
 
@@ -99,7 +99,7 @@ method create_atom_feed() {
 
 	my $url = config<url>;
 	my $atom = Perl6::Maven::Atom.new(
-		title    => 'Perl 6 Maven',
+		title    => config<site_title>,
 		id       => "$url/",
 		self     => "$url/atom",
 		updated  => %$latest<timestamp>,
