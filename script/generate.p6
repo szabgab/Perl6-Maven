@@ -7,6 +7,7 @@ use Perl6::Maven::Tools;
 use Perl6::Maven::Pages;
 use Perl6::Maven::Collector;
 use Perl6::Maven::Slides;
+use Perl6::Maven::Authors;
 
 multi MAIN(Bool :$help!) {
 	say 'no param' if  not $help;
@@ -21,6 +22,8 @@ multi MAIN(
 	usage('avoid updirs') if $outdir ~~ m/\.\./;
 
 	read_config($indir);
+	my $authors = Perl6::Maven::Authors.new( source_dir => $indir);
+	$authors.read_authors;
 
 	# If the user tries to pass --outdir ~/tmp/perl6maven the code will receive the ~ without the shell expanding it
 	# Let's avoid creating a directory called ~
@@ -36,8 +39,7 @@ multi MAIN(
 	$slides.read_yml;
  
  	my %index;
-    my $pages = Perl6::Maven::Pages.new(source_dir => $indir);
-	$pages.read_authors;
+    my $pages = Perl6::Maven::Pages.new(source_dir => $indir, authors => $authors.authors);
 	$pages.read_pages;
 	#$pages.save_pages;
 

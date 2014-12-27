@@ -6,7 +6,7 @@ use Perl6::Maven::Collector;
 
 has $.source_dir;
 has @.pages;
-my %.authors;
+has %.authors;
 
 
 method save_pages() {
@@ -144,23 +144,6 @@ method read_pages() {
 	}
 
 	Perl6::Maven::Collector.add_index('pages', %index);
-	return;
-}
-
-# In %index the keys are the indexed keywords
-# The values are arrays of hashes:
-#   url   => 'http://perl6maven.com/...',
-#   title => 'Some text',
-
-method read_authors() {
-	for open("$.source_dir/authors.txt").lines -> $line {
-		my ($author, $name, $img, $google) = $line.split(/\;/);
-		%.authors{$author} = {
-			author_name => $name,
-			author_img  => $img,
-			google_profile_link => $google,
-		};
-	}
 	return;
 }
 
