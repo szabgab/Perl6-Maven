@@ -35,15 +35,15 @@ multi MAIN(
 	shell("cp -r files/* $outdir"); # TODO Perl based recursive copy!
 	set_outdir($outdir);
 
-	my $slides = Perl6::Maven::Slides.new(file => "$indir/pages/tutorial/pages.yml");
-	$slides.read_yml;
 
 	my %index;
 	my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors);
 	$pages.read_pages;
 	$pages.save_pages;
 
-	$slides.save();
+	my $slides = Perl6::Maven::Slides.new(file => "$indir/pages/tutorial/pages.yml");
+	$slides.read_yml;
+	$slides.save_indexes();
 
 	Perl6::Maven::Collector.create_main();
 	Perl6::Maven::Collector.create_index();

@@ -36,7 +36,7 @@ method read_yml() {
 	}
 }
 
-method save() {
+method save_indexes() {
 	my @chapters;
 	for %.slides.keys -> $id {
 		#debug("ID $id");
