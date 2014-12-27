@@ -1,23 +1,15 @@
 class Perl6::Maven::Pages;
 
 use Perl6::Maven::Tools;
-use Perl6::Maven::Atom;
 use Perl6::Maven::Collector;
 
-my $FRONT_PAGE_LIMIT = 4;
 
-has $.url;
 has $.source_dir;
 has @.pages;
 my %.authors;
 
-method run() {
-	self.read_authors;
-	self.process_pages;
 
-	save_file('atom', self.create_atom_feed);
-
-	self.create_main;
+method save_pages() {
 	for @.pages -> $p {
 		process_template('page.tmpl', $p<url>, $p);
 	}
@@ -25,7 +17,7 @@ method run() {
 	return;
 }
 
-method process_pages() {
+method read_pages() {
 	my %index;
 	@.pages = ();
 
@@ -124,7 +116,7 @@ method process_pages() {
 			%params<content> ~= "$row\n";
 		}
 		my $outfile = substr($tmpl, 0, chars($tmpl) - 4);
-		%params<permalink> = "$.url/$outfile";
+		%params<permalink> = "{config<url>}/$outfile";
 
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. %params<keywords>.elems -1  -> $i {
@@ -155,71 +147,11 @@ method process_pages() {
 	return;
 }
 
-# $src is 'pages' or 'slides' or 'modules' or 'doc'
 # In %index the keys are the indexed keywords
 # The values are arrays of hashes:
 #   url   => 'http://perl6maven.com/...',
 #   title => 'Some text',
 
-method create_main() {
-	my @front;
-	my $count;
-	for @.pages -> $p {
-		next if %$p<abstract> eq '';
-		$count++;
-		@front.push($p);
-		last if $count >= $FRONT_PAGE_LIMIT;
-	}
-
-	my %params = (
-		title => 'Perl 6 Maven',
-		pages => @front.item,
-	);
-	process_template('main.tmpl', 'main', %params);
-	return;
-}
-
-method create_atom_feed() {
-	my ($latest) = @.pages.sort({ %$^a<timestamp> cmp %$^b<timestamp> });
-
-	my $atom = Perl6::Maven::Atom.new(
-		title    => 'Perl 6 Maven',
-		id       => "$.url/",
-		self     => "$.url/atom",
-		updated  => %$latest<timestamp>,
-	);
-
-#		author   => {
-#			name  => 'Gabor Szabo',
-#			email => 'gabor@szabgab.com',
-#		},
-
-	my $count;
-	for @.pages -> $p {
-		next if not $p<archive>;
-		next if %$p<abstract> eq '';
-		$count++;
-		my $entry = Perl6::Maven::Atom::Entry.new(
-			title   => %$p<title>,
-			issued  => %$p<timestamp>,
-			created => %$p<timestamp>,
-			#modified => %$p<timestamp>,
-			link    => "$.url/{%$p<url>}",
-			#id      => ,   # urn:example-com:myblog:1
-			summary => %$p<abstract>,
-			author => Perl6::Maven::Atom::Author.new(
-				#name => %.authors{ %$p<author> }<author_name>.
-				name => %$p<author>,
-				#email => '',
-			),
-		);
-		$atom.entries.push($entry);
-		last if $count >= 10;
-	}
-	return $atom.Str;
-}
-
-# TODO move authors.txt to the root of the source directory
 method read_authors() {
 	for open("$.source_dir/authors.txt").lines -> $line {
 		my ($author, $name, $img, $google) = $line.split(/\;/);

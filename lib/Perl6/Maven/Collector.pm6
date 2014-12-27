@@ -1,10 +1,13 @@
 class Perl6::Maven::Collector;
 
 use Perl6::Maven::Tools;
+use Perl6::Maven::Atom;
+
 use JSON::Tiny;
 
 my @pages;
 my %.indexes;
+my $FRONT_PAGE_LIMIT = 4;  # TODO move to config
 
 
 # indexes is a global hash of all the indexes
@@ -72,6 +75,66 @@ method create_archive() {
 	my @p = @pages.sort({ $^b<timestamp> cmp %$^a<timestamp> });
 	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.item });
 }
+
+method create_main() {
+	my @front;
+	my $count;
+	for @pages -> $p {
+		next if %$p<abstract> eq '';
+		$count++;
+		@front.push($p);
+		last if $count >= $FRONT_PAGE_LIMIT;
+	}
+
+	my %params = (
+		title => 'Perl 6 Maven',
+		pages => @front.item,
+	);
+	process_template('main.tmpl', 'main', %params);
+	return;
+}
+
+method create_atom_feed() {
+	my ($latest) = @pages.sort({ %$^a<timestamp> cmp %$^b<timestamp> });
+
+	my $url = config<url>;
+	my $atom = Perl6::Maven::Atom.new(
+		title    => 'Perl 6 Maven',
+		id       => "$url/",
+		self     => "$url/atom",
+		updated  => %$latest<timestamp>,
+	);
+
+#		author   => {
+#			name  => 'Gabor Szabo',
+#			email => 'gabor@szabgab.com',
+#		},
+
+	my $count;
+	for @pages -> $p {
+		next if not $p<archive>;
+		next if %$p<abstract> eq '';
+		$count++;
+		my $entry = Perl6::Maven::Atom::Entry.new(
+			title   => %$p<title>,
+			issued  => %$p<timestamp>,
+			created => %$p<timestamp>,
+			#modified => %$p<timestamp>,
+			link    => "$url/{%$p<url>}",
+			#id      => ,   # urn:example-com:myblog:1
+			summary => %$p<abstract>,
+			author => Perl6::Maven::Atom::Author.new(
+				#name => %.authors{ %$p<author> }<author_name>.
+				name => %$p<author>,
+				#email => '',
+			),
+		);
+		$atom.entries.push($entry);
+		last if $count >= 10;
+	}
+	return $atom.Str;
+}
+
 
 
 # vim: ft=perl6
