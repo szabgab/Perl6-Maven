@@ -1,0 +1,12 @@
+branches:
+  except:
+    - gh-pages
+language: perl
+perl:
+  - "5.20"
+before_install:
+  - git clone https://github.com/szabgab/perl6-travis-ci.git
+script:
+  - pwd
+  - cat .travis.yml
+  - perl6-travis-ci/rakudo.sh
