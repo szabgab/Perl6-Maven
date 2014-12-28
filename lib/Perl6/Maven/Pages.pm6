@@ -5,13 +5,14 @@ use Perl6::Maven::Collector;
 
 
 has $.source_dir;
-has @.pages;
 has %.authors;
 has $.outdir;
 
 
 method save_pages() {
-	for @.pages -> $p {
+	debug("save pages");
+	#say Perl6::Maven::Collector.get_pages;
+	for Perl6::Maven::Collector.get_pages -> $p {
 		process_template('page.tmpl', $p<url>, $p);
 	}
 
@@ -20,7 +21,6 @@ method save_pages() {
 
 method read_pages() {
 	my %index;
-	@.pages = ();
 
 	my $in_abstract = 0;
 
@@ -135,7 +135,6 @@ method read_pages() {
 			next;
 		}
 
-		@.pages.push(%params.item);
 		Perl6::Maven::Collector.add_page(%params);
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. %params<keywords>.elems -1  -> $i {
