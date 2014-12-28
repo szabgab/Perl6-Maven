@@ -44,6 +44,10 @@ method add_page(%data) {
 	%pages{%data<url>} = %data.item;
 }
 
+method get_page($id) {
+	return %pages{$id};
+}
+
 method get_pages() {
 	return values %pages;
 }

@@ -1,12 +1,12 @@
 % my (%h) = @_;
 
 <div>
-% if %h<PREV_FILE> {
-  <a class="btn btn-info" href="<%= %h<PREV_FILE> %>">Prev: <%= %h<PREV_TITLE> %></a>
+% if %h<prev_file> {
+  <a class="btn btn-info" href="/<%= %h<prev_file> %>">Prev: <%= %h<prev_title> %></a>
 % }
-% if %h<NEXT_FILE> {
+% if %h<next_file> {
   <div class="pull-right">
-  <a class="btn btn-primary" style="text-align: right" href="<%= %h<NEXT_FILE> %>">Next: <%= %h<NEXT_TITLE> %></a>
+  <a class="btn btn-primary" style="text-align: right" href="/<%= %h<next_file> %>">Next: <%= %h<next_title> %></a>
   </div>
 % }
 </div>

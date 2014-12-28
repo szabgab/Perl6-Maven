@@ -115,6 +115,8 @@ method read_pages() {
 			}
 			%params<content> ~= "$row\n";
 		}
+		#die "No keywords found in $tmpl" if not %params<keywords>;
+
 		my $outfile = substr($tmpl, 0, chars($tmpl) - 4);
 		%params<permalink> = "{config<url>}/$.outdir$outfile";
 
