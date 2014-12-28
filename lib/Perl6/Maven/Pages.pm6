@@ -11,7 +11,6 @@ has $.outdir;
 
 method save_pages() {
 	debug("save pages");
-	#say Perl6::Maven::Collector.get_pages;
 	for Perl6::Maven::Collector.get_pages -> $p {
 		process_template('page.tmpl', $p<url>, $p);
 	}

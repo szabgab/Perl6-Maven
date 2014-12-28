@@ -5,7 +5,7 @@ use Perl6::Maven::Atom;
 
 use JSON::Tiny;
 
-my @.pages;
+my %pages;
 my %.indexes;
 
 
@@ -40,18 +40,19 @@ method create_index() {
 # it, later, this should be the source for the index
 # and the other meta files
 method add_page(%data) {
-	@.pages.push(%data.item);
+	die "%data<url> already exists" if %pages{%data<url>};
+	%pages{%data<url>} = %data.item;
 }
 
 method get_pages() {
-	return @.pages;
+	return values %pages;
 }
 
 method create_sitemap() {
 	my $xml = qq{<?xml version="1.0" encoding="UTF-8"?>\n};
 	$xml ~= qq{<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n};
 
-	for @.pages -> $p {
+	for %pages.values -> $p {
 	#	say $p<title>;
 		#for $p.keys -> $k {
 		#    say $k;
@@ -72,7 +73,7 @@ method create_sitemap() {
 }
 
 method archived_pages() {
-	return @.pages.grep({ $_.<archive> }).sort({ $^b<timestamp> cmp %$^a<timestamp> });
+	return %pages.values.grep({ $_.<archive> }).sort({ $^b<timestamp> cmp %$^a<timestamp> });
 }
 
 method create_archive() {
