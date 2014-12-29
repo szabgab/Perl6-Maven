@@ -41,6 +41,7 @@ method read_pages() {
 			kw        => [],
 			archive   => config<archive>,
 			comments  => config<comments>,
+			show_index_button => 1,
 		);
 
 		my $in_code = 0;

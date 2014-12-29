@@ -66,6 +66,8 @@ method update_slides() {
 				die "Missing page for '$p<id>'. Is there a typo in pages.yml ?"; 
 			}
 
+			$p<show_toc_button> = 1;
+
 			$p<title> = $page<title>;
 			$p<prev_file> = $page<prev_file>  = $prev_file;
 			$p<prev_title> = $page<prev_title> = $prev_title;

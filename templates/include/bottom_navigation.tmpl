@@ -3,12 +3,12 @@
 
 <%= Template::Mojo.new(slurp "templates/include/top_navigation.tmpl").render(%h); %>
 <p>
-% if %h<toc> {
-  <a class="btn" href="<%= %h<toc> %>">Table of Contents</a>
+% if %h<show_toc_button> {
+  <a class="btn" href="toc">Table of Contents</a>
 % }
 
-% if %h<index> {
+% if %h<show_index_button> {
   <div class="pull-right">
-  <a class="btn" href="<%= %h<index> %>">Index</a>
+  <a class="btn" href="/index">Index</a>
   </div>
 % }
