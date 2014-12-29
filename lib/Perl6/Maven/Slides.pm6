@@ -33,6 +33,9 @@ method read_yml() {
 			%.slides{$id}<pages>.push({ id => "$/[0]" });
 			next;
 		}
+		if $line ~~ /^<space>*$/ {
+			next;
+		}
 	
 		die "Line could not be recognized in $file <$line>";
 	}
