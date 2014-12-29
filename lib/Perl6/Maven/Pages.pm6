@@ -7,6 +7,7 @@ use Perl6::Maven::Collector;
 has $.source_dir;
 has %.authors;
 has $.outdir;
+has $.include;
 
 
 method save_pages() {
@@ -105,6 +106,12 @@ method read_pages() {
 			} elsif $in_code {
 				$row ~~ s:g/\</&lt;/;
 				$row ~~ s:g/\>/&gt;/;
+			}
+
+			if $row ~~ m/^\<include<space>file\=\"(<-["]>*)\"<space>\/\><space>*/ {
+				my $file = $/[0];
+				debug("including '$file' from '$.include' for '$tmpl'");
+				$row = "<pre>\n" ~ slurp("$.include$file") ~ "</pre>\n";
 			}
 
 			$row ~~ s:g/\<hl\>/<span class="label">/;
