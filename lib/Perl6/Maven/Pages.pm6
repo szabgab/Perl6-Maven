@@ -25,10 +25,14 @@ method read_pages() {
 	my $in_abstract = 0;
 
 	my @files = dir("$.source_dir").map({ $_.basename });;
-	#debug('process pages');
+	
+	debug('process pages of ' ~ @files.elems ~ ' files: ' ~ @files.perl);
 
 	for @files -> $tmpl {
-		next if $tmpl !~~ m/\.txt$/;
+		if $tmpl !~~ m/\.txt$/ {
+			debug("Skipping '$tmpl' it does not end with .txt");
+			next;
+		}
 		debug("Source file $tmpl");
 
 		my $fh = open "$.source_dir/$tmpl", :r;
