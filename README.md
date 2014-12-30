@@ -8,7 +8,7 @@ In order to build the pages
     * cd Perl6-Maven
     * time perl6 -Ilib script/generate.p6 --outdir=/home/gabor/work/perl6maven-live.com --indir=/home/gabor/work/perl6maven.com/
 
-It took 1:38 min to generate all the pages using Rakudo Star 2014.09 on MacBook Air
+It took about 5 minutes to generate all the pages using Rakudo Star 2014.09 on MacBook Air
 
 
 To run all the test try:
