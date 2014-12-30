@@ -24,12 +24,12 @@ method read_pages() {
 
 	my $in_abstract = 0;
 
-	my @files = dir("$.source_dir").map({ $_.basename });;
+	my @files = dir("$.source_dir").map({ $_.basename });
 	
 	debug('process pages of ' ~ @files.elems ~ ' files: ' ~ @files.perl);
 
 	for @files -> $tmpl {
-		if $tmpl !~~ m/\.txt$/ {
+		if substr($tmpl, *-4) ne '.txt' {
 			debug("Skipping '$tmpl' it does not end with .txt");
 			next;
 		}
