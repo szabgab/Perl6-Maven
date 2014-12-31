@@ -5,6 +5,6 @@ language: c
 #perl:
 #  - "5.20"
 before_install:
-  - git clone https://github.com/szabgab/perl6-travis-ci.git ..
+  - git clone https://github.com/szabgab/perl6-travis-ci.git ../perl6-travis-ci
 script:
   - ../perl6-travis-ci/rakudo.sh
