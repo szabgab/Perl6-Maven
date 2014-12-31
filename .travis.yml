@@ -10,3 +10,5 @@ script:
   - pwd
   - cat .travis.yml
   - perl6-travis-ci/rakudo.sh
+  - perl -v
+  - prove --version
