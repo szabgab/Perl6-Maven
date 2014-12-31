@@ -58,9 +58,9 @@ my $expected_sitemap = '<?xml version="1.0" encoding="UTF-8"?>
 is $sitemap, $expected_sitemap, 'sitemap';
 
 is_deeply Perl6::Maven::Collector.indexes, {
-    "arrays" => [{"url" => "/one", "title" => "One", "src" => "pages"}],
-    "uniq" => [{"url" => "/one", "title" => "One", "src" => "pages"}],
-    "unique" => [{"url" => "/one", "title" => "One", "src" => "pages"}]
+    "arrays" => [{"url" => "/one", "title" => "One"}],
+    "uniq" => [{"url" => "/one", "title" => "One"}],
+    "unique" => [{"url" => "/one", "title" => "One"}]
 }, 'indexes';
 
 # vim: ft=perl6
