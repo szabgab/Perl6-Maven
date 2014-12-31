@@ -55,7 +55,6 @@ multi MAIN(
 	save_file('atom', Perl6::Maven::Collector.create_atom_feed);
 	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());
 
-	Perl6::Maven::Collector.create_authors_page();
 }
 
 sub usage($msg?) {
