@@ -7,12 +7,14 @@
 
 <%= %h<abstract> %>
 
-<ul class="unstyled">
-% for %h<kw>.values -> $k {
-  <li style="display: inline"><button class="btn btn-mini btn-primary kw-button"
-     type="button" value="<%= $k<keyword> %>"><%= $k<keyword> %></button></li>
+% if %h<kw>.elems {
+      <ul class="unstyled">
+%     for %h<kw>.values -> $k {
+          <li style="display: inline"><button class="btn btn-mini btn-primary kw-button"
+         type="button" value="<%= $k<keyword> %>"><%= $k<keyword> %></button></li>
+%     }
+      </ul>
 % }
-</ul>
 <%= Template::Mojo.new(slurp "templates/include/alert.tmpl").render(%h); %>
 
 

@@ -135,6 +135,7 @@ method read_pages() {
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. %params<keywords>.elems -1  -> $i {
 			my $k = %params<keywords>[$i];
+			next if $k ~~ /^<space>*$/;
 			%params<kw>.push({ keyword => $k, url => %params<permalink> , title => %params<title> });
 		}
 
