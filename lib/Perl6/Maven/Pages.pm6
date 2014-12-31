@@ -116,7 +116,9 @@ method read_pages() {
 			if $row ~~ m/^\<include<space>file\=\"(<-["]>*)\"<space>\/\><space>*/ {
 				my $file = $/[0];
 				debug("including '$file' from '$.include' for '$tmpl'");
-				$row = '<b>' ~ $file ~ "</b>\n<pre>\n" ~ slurp("$.include$file") ~ "</pre>\n";
+				my $code = slurp("$.include$file");
+				$code.=subst(/\</, '&lt;', :g);
+				$row = '<b>' ~ $file ~ "</b>\n<pre>\n" ~ $code ~ "</pre>\n";
 			}
 
 			$row ~~ s:g/\<hl\>/<span class="label">/;
