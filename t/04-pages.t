@@ -1,19 +1,21 @@
 use v6;
 use Test;
 
-plan 11;
+plan 12;
 
 use Perl6::Maven::Pages;
+use Perl6::Maven::Authors;
+use Perl6::Maven::Tools;
 
-my $url = 'http://perl6maven.com';
 my $source_dir = 't/files';
 
-my $p = Perl6::Maven::Pages.new(source_dir => $source_dir, url => $url);
-isa_ok $p, 'Perl6::Maven::Pages';
+read_config($source_dir);
+is_deeply config, {"site_title" => "Perl 6 Maven", "front_page_limit" => "5", "comments" => "1", "url" => "http://perl6maven.com", "archive" => "0"}, 'config';
 
-$p.read_authors;
+my $authors = Perl6::Maven::Authors.new( source_dir => $source_dir);
+$authors.read_authors;
 #diag $p.authors<szabgab>.keys;
-is_deeply $p.authors, {
+is_deeply $authors.authors, {
     "szabgab" => {
         "author_name" => "Gabor Szabo",
         "author_img" => "szabgab.png",
@@ -26,17 +28,23 @@ is_deeply $p.authors, {
     }
 }, 'authors';
 
-$p.process_pages;
-is_deeply $p.pages[0].keys.sort,
-    ("abstract",  "archive", "author", "author_img", "author_name", "comments", "content", "date", "google_profile_link",
-    "keywords", "kw", "perl5title", "perl5url", "permalink", "status", "timestamp", "title", "url"), 'keys';
+my $p = Perl6::Maven::Pages.new(source_dir => "$source_dir/pages", authors => $authors.authors, outdir => '', include => "$source_dir/files/");
+isa_ok $p, 'Perl6::Maven::Pages';
 
-is $p.pages[0]<title>, 'One', 'title';
-is $p.pages[0]<timestamp>, '2012-07-04T16:52:02', 'timestamp';
-is $p.pages[0]<author>, 'szabgab', 'author';
-is $p.pages[0]<status>, 'show',   'status';
-is $p.pages[0]<url>, 'one',       'url';
-is $p.pages[0]<permalink>, 'http://perl6maven.com/one', 'permalink';
+$p.read_pages;
+
+my $pages = Perl6::Maven::Collector.get_pages;
+#diag @pages.perl;
+is_deeply $pages[0].keys.sort,
+    ("abstract",  "archive", "author", "author_img", "author_name", "comments", "content", "date", "google_profile_link",
+    "keywords", "kw", "perl5title", "perl5url", "permalink", "show_index_button", "status", "timestamp", "title", "url"), 'keys';
+
+is $pages[0]<title>, 'One', 'title';
+is $pages[0]<timestamp>, '2012-07-04T16:52:02', 'timestamp';
+is $pages[0]<author>, 'szabgab', 'author';
+is $pages[0]<status>, 'show',   'status';
+is $pages[0]<url>, 'one',       'url';
+is $pages[0]<permalink>, 'http://perl6maven.com/one', 'permalink';
 
 my $sitemap = Perl6::Maven::Collector.create_sitemap;
 my $expected_sitemap = '<?xml version="1.0" encoding="UTF-8"?>
