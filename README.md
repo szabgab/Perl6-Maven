@@ -1,3 +1,7 @@
+###Status
+[![Build Status](https://travis-ci.org/szabgab/Perl6-Maven.png)](https://travis-ci.org/szabgab/Perl6-Maven)
+
+
 The code generating the http://perl6maven.com/ site.
 
 In order to build the pages
