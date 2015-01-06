@@ -95,7 +95,7 @@ method save_indexes() {
 	for %.slides.keys -> $id {
 		#debug("ID $id");
 		%.slides{$id}<content> //= '';
-		process_template('slides_chapter.tmpl', "tutorial/$id", %.slides{$id});
+		save_template('slides_chapter.tmpl', "tutorial/$id", %.slides{$id});
 		%.slides{$id}<id> = $id;
 		@chapters.push(%.slides{$id});
 	}
@@ -105,7 +105,7 @@ method save_indexes() {
 		content => ''
 	);
 
-	process_template('slides_toc.tmpl', "tutorial/toc", %data);
+	save_template('slides_toc.tmpl', "tutorial/toc", %data);
 }
 
 # vim: ft=perl6

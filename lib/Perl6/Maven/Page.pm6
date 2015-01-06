@@ -118,7 +118,7 @@ method read_file($source_file, $outfile) {
 	return;
 }
 method save {
-	process_template('page.tmpl', %.params<url>, %.params);
+	save_template('page.tmpl', %.params<url>, %.params);
 }
 
 

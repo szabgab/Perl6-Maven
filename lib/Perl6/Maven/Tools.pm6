@@ -28,19 +28,23 @@ sub rdir($path) is export {
 }
 
 
-sub process_template($template, $outfile, %params) is export {
+sub save_template($template, $outfile, %params) is export {
+	debug("processing template $template to $outfile");
+	my $output = process_template($template, %params);
+	save_file($outfile, $output);
+	return;
+}
+
+sub process_template($template, %params) is export {
 	%params<site_title> = %config<site_title>;
 
 	%params<description> //= '';
 	%params<author> //= '';
 
-	debug("processing template $template to $outfile");
 	my $fh = open "templates/$template", :r;
 	my $tmpl = $fh.slurp-rest;
-	my $output = Template::Mojo.new($tmpl).render(%params);
+	return Template::Mojo.new($tmpl).render(%params);
 
-	save_file($outfile, $output);
-	return;
 }
 
 sub save_file($outfile, $content) is export {

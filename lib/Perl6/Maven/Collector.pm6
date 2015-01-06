@@ -30,7 +30,7 @@ method create_index() {
 		title    => 'Perl 6 Maven Index',
 		keywords => @index.item,
 	);
-	process_template('index.tmpl', 'index', %params);
+	save_template('index.tmpl', 'index', %params);
 
 	save_file( 'index.json',to-json(%.indexes) );
 	return;
@@ -79,7 +79,7 @@ method archived_pages() {
 
 method create_archive() {
 	my @p = self.archived_pages();
-	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.map({ $_.params.item }).item });
+	save_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.map({ $_.params.item }).item });
 }
 
 method create_main() {
@@ -99,7 +99,7 @@ method create_main() {
 		title => config<site_title>,
 		pages => @front.item,
 	);
-	process_template('main.tmpl', 'main', %params);
+	save_template('main.tmpl', 'main', %params);
 	return;
 }
 
