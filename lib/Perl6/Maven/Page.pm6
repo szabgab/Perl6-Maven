@@ -5,10 +5,15 @@ use Perl6::Maven::Tools;
 has %.authors;
 has $.outdir;
 has $.include;
+has %.params;
+
+method status() {
+	return %.params<status>;
+}
 
 method read_file($source_file, $outfile) {
 	my $fh = open $source_file, :r;
-	my %params = (
+	my %.params = (
 		content   => '',
 		title     => '',
 		timestamp => '',
@@ -30,37 +35,37 @@ method read_file($source_file, $outfile) {
 			#say $value;
 			given $field {
 				when 'title' {
-					%params<title> = $value.Str;
+					%.params<title> = $value.Str;
 				}
 				when 'keywords' {
-					%params<keywords>.push($value.Str.split(/\s*\,\s*/));
+					%.params<keywords>.push($value.Str.split(/\s*\,\s*/));
 				}
 				when 'timestamp' {
-					%params<timestamp> = $value.Str;
-					%params<date> = substr($value.Str, 0, 10);
+					%.params<timestamp> = $value.Str;
+					%.params<date> = substr($value.Str, 0, 10);
 				}
 				when 'comments' {
-					%params<comments> = $value.Str;
+					%.params<comments> = $value.Str;
 				}
 				when 'status' {
-					%params<status> = $value.Str;
+					%.params<status> = $value.Str;
 				}
 				when 'archive' {
-					%params<archive> = $value.Str;
+					%.params<archive> = $value.Str;
 				}
 				when 'perl5url' {
-					%params<perl5url> = $value.Str;
+					%.params<perl5url> = $value.Str;
 				}
 				when 'perl5title' {
-					%params<perl5title> = $value.Str;
+					%.params<perl5title> = $value.Str;
 				}
 				when 'author' {
 					my $nickname = $value.Str;
 					if %.authors{$nickname} {
-						%params<author> = $nickname;
-						%params<author_name> = %.authors{$nickname}<author_name>;
-						%params<author_img>  = %.authors{$nickname}<author_img>;
-						%params<google_profile_link>  = %.authors{$nickname}<google_profile_link>;
+						%.params<author> = $nickname;
+						%.params<author_name> = %.authors{$nickname}<author_name>;
+						%.params<author_img>  = %.authors{$nickname}<author_img>;
+						%.params<google_profile_link>  = %.authors{$nickname}<google_profile_link>;
 					} else {
 						die "Author '$nickname' was not found in the authors.txt file";
 					}
@@ -97,24 +102,24 @@ method read_file($source_file, $outfile) {
 		$row ~~ s:g/\<hl\>/<span class="label">/;
 		$row ~~ s:g/\<\/hl\>/<\/span>/;
 		if ($in_abstract) {
-			%params<abstract> ~= "$row\n";
+			%.params<abstract> ~= "$row\n";
 			next;
 		}
-		%params<content> ~= "$row\n";
+		%.params<content> ~= "$row\n";
 	}
-	#die "No keywords found in $source_file" if not %params<keywords>;
+	#die "No keywords found in $source_file" if not %.params<keywords>;
 
-	%params<permalink> = "{config<url>}/$.outdir$outfile";
-	%params<url> = "$.outdir$outfile";
+	%.params<permalink> = "{config<url>}/$.outdir$outfile";
+	%.params<url> = "$.outdir$outfile";
 
 	# TODO how do I iterate over the array elents other than this work-around?
-	for 0 .. %params<keywords>.elems -1  -> $i {
-		my $k = %params<keywords>[$i];
+	for 0 .. %.params<keywords>.elems -1  -> $i {
+		my $k = %.params<keywords>[$i];
 		next if $k ~~ /^<space>*$/;
-		%params<kw>.push({ keyword => $k, url => %params<permalink> , title => %params<title> });
+		%.params<kw>.push({ keyword => $k, url => %.params<permalink> , title => %.params<title> });
 	}
 
-	return %params;
+	return %.params;
 }
 
 

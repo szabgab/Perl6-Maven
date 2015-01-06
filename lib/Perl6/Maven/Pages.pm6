@@ -38,12 +38,12 @@ method read_pages() {
 
 		my %params = $page.read_file("$.source_dir/$source_file", substr($source_file, 0, chars($source_file) - 4));
 
-		if not %params<status> {
+		if not $page.status {
 			debug("Skipping. No status in '$source_file'");
 			next;
 		}
-		if %params<status> ne 'show' {
-			debug("Skipping Status is '%params<status>' in '$source_file'");
+		if $page.status ne 'show' {
+			debug("Skipping Status is '{$page.status}' in '$source_file'");
 			next;
 		}
 
