@@ -49,9 +49,9 @@ method read_pages() {
 
 		Perl6::Maven::Collector.add_page(%params);
 		# TODO how do I iterate over the array elents other than this work-around?
-		for 0 .. %params<keywords>.elems -1  -> $i {
-			my $k = %params<keywords>[$i];
-			%index{$k}.push({ url => "/%params<url>" , title => %params<title> });
+		for 0 .. $page.params<keywords>.elems -1  -> $i {
+			my $k = $page.params<keywords>[$i];
+			%index{$k}.push({ url => '/' ~ $page.params<url> , title => $page.params<title> });
 		}
 	}
 
