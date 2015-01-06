@@ -28,14 +28,14 @@ method read_pages() {
 	
 	debug('process pages of ' ~ @files.elems ~ ' files: ' ~ @files.perl);
 
-	for @files -> $tmpl {
-		if substr($tmpl, *-4) ne '.txt' {
-			debug("Skipping '$tmpl' it does not end with .txt");
+	for @files -> $source_file {
+		if substr($source_file, *-4) ne '.txt' {
+			debug("Skipping '$source_file' it does not end with .txt");
 			next;
 		}
-		debug("Source file $tmpl");
+		debug("Source file $source_file");
 
-		my $fh = open "$.source_dir/$tmpl", :r;
+		my $fh = open "$.source_dir/$source_file", :r;
 		my %params = (
 			content   => '',
 			title     => '',
@@ -96,7 +96,7 @@ method read_pages() {
 						$in_abstract = $value eq 'start' ?? 1 !! 0;
 					}
 					default {
-						die "Invalid field '$field' in '$tmpl'";
+						die "Invalid field '$field' in '$source_file'";
 					}
 				}
 				next;
@@ -115,7 +115,7 @@ method read_pages() {
 
 			if $row ~~ m/^\<include<space>file\=\"(<-["]>*)\"<space>\/\><space>*/ {
 				my $file = $/[0];
-				debug("including '$file' from '$.include' for '$tmpl'");
+				debug("including '$file' from '$.include' for '$source_file'");
 				my $code = slurp("$.include$file");
 				$code.=subst(/\</, '&lt;', :g);
 				$row = '<b>' ~ $file ~ "</b>\n<pre>\n" ~ $code ~ "</pre>\n";
@@ -129,9 +129,9 @@ method read_pages() {
 			}
 			%params<content> ~= "$row\n";
 		}
-		#die "No keywords found in $tmpl" if not %params<keywords>;
+		#die "No keywords found in $source_file" if not %params<keywords>;
 
-		my $outfile = substr($tmpl, 0, chars($tmpl) - 4);
+		my $outfile = substr($source_file, 0, chars($source_file) - 4);
 		%params<permalink> = "{config<url>}/$.outdir$outfile";
 
 		# TODO how do I iterate over the array elents other than this work-around?
@@ -143,11 +143,11 @@ method read_pages() {
 
 		%params<url> = "$.outdir$outfile";
 		if not %params<status> {
-			debug("Skipping. No status in '$tmpl'");
+			debug("Skipping. No status in '$source_file'");
 			next;
 		}
 		if %params<status> ne 'show' {
-			debug("Skipping Status is '%params<status>' in '$tmpl'");
+			debug("Skipping Status is '%params<status>' in '$source_file'");
 			next;
 		}
 
