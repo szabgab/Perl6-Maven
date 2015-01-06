@@ -13,8 +13,8 @@ has $.include;
 
 method save_pages() {
 	debug("save pages");
-	for Perl6::Maven::Collector.get_pages -> $p {
-		process_template('page.tmpl', $p<url>, $p);
+	for Perl6::Maven::Collector.get_pages -> $page {
+		$page.save;
 	}
 
 	return;
@@ -36,18 +36,18 @@ method read_pages() {
 		debug("Source file $source_file");
 		my $page = Perl6::Maven::Page.new(authors => %.authors, outdir => $.outdir, include => $.include);
 
-		my %params = $page.read_file("$.source_dir/$source_file", substr($source_file, 0, chars($source_file) - 4));
+		$page.read_file("$.source_dir/$source_file", substr($source_file, 0, chars($source_file) - 4));
 
-		if not $page.status {
+		if not $page.params<status> {
 			debug("Skipping. No status in '$source_file'");
 			next;
 		}
-		if $page.status ne 'show' {
-			debug("Skipping Status is '{$page.status}' in '$source_file'");
+		if $page.params<status> ne 'show' {
+			debug("Skipping Status is '{$page.params<status>}' in '$source_file'");
 			next;
 		}
 
-		Perl6::Maven::Collector.add_page(%params);
+		Perl6::Maven::Collector.add_page($page);
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. $page.params<keywords>.elems -1  -> $i {
 			my $k = $page.params<keywords>[$i];

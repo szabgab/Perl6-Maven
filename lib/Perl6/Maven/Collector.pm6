@@ -39,9 +39,10 @@ method create_index() {
 # for now we only push the list here but don't use
 # it, later, this should be the source for the index
 # and the other meta files
-method add_page(%data) {
-	die "%data<url> already exists" if %pages{%data<url>};
-	%pages{%data<url>} = %data.item;
+method add_page($page) {
+	debug("add page url: {$page.params<url>}");
+	die "{$page.params<url>} already exists" if %pages{$page.params<url>};
+	%pages{$page.params<url>} = $page;
 }
 
 method get_page($id) {
@@ -56,15 +57,11 @@ method create_sitemap() {
 	my $xml = qq{<?xml version="1.0" encoding="UTF-8"?>\n};
 	$xml ~= qq{<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n};
 
-	for %pages.values -> $p {
-	#	say $p<title>;
-		#for $p.keys -> $k {
-		#    say $k;
-		#}
+	for %pages.values -> $page {
 		$xml ~= qq{  <url>\n};
-		$xml ~= sprintf('    <loc>%s</loc>', $p<permalink>) ~ "\n";
-		if $p<timestamp> {
-			$xml ~= sprintf('    <lastmod>%s</lastmod>', $p<timestamp>.substr(0, 10) ) ~ "\n";
+		$xml ~= sprintf('    <loc>%s</loc>', $page.params<permalink>) ~ "\n";
+		if $page.params<timestamp> {
+			$xml ~= sprintf('    <lastmod>%s</lastmod>', $page.params<timestamp>.substr(0, 10) ) ~ "\n";
 		}
 		#$xml ~= qq{    <changefreq>monthly</changefreq>\n};
 		#$xml ~= qq{    <priority>0.8</priority>\n};
@@ -77,24 +74,24 @@ method create_sitemap() {
 }
 
 method archived_pages() {
-	return %pages.values.grep({ $_.<archive> }).sort({ $^b<timestamp> cmp %$^a<timestamp> });
+	return %pages.values.grep({ $_.params<archive> }).sort({ $^b.params<timestamp> cmp $^a.params<timestamp> });
 }
 
 method create_archive() {
 	my @p = self.archived_pages();
-	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.item });
+	process_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.map({ $_.params.item }).item });
 }
 
 method create_main() {
 	my @front;
 	my $count;
-	for self.archived_pages -> $p {
-		if %$p<abstract> eq '' {
-			warning("Skipping page '%$p<url>' from front-page due to lack of abstract");
+	for self.archived_pages -> $page {
+		if $page.params<abstract> eq '' {
+			warning("Skipping page '{$page.params<url>}' from front-page due to lack of abstract");
 			next;
 		}
 		$count++;
-		@front.push($p);
+		@front.push($page.params.item);
 		last if $count >= config<front_page_limit>;
 	}
 
@@ -115,7 +112,7 @@ method create_atom_feed() {
 		title    => config<site_title>,
 		id       => "$url/",
 		self     => "$url/atom",
-		updated  => %$latest<timestamp>,
+		updated  => $latest.params<timestamp>,
 	);
 
 #		author   => {
@@ -124,21 +121,21 @@ method create_atom_feed() {
 #		},
 
 	my $count;
-	for @archived_pages -> $p {
-		next if not $p<archive>;
-		next if %$p<abstract> eq '';
+	for @archived_pages -> $page {
+		next if not $page.params<archive>;
+		next if $page.params<abstract> eq '';
 		$count++;
 		my $entry = Perl6::Maven::Atom::Entry.new(
-			title   => %$p<title>,
-			issued  => %$p<timestamp>,
-			created => %$p<timestamp>,
-			#modified => %$p<timestamp>,
-			link    => "$url/{%$p<url>}",
+			title   => $page.params<title>,
+			issued  => $page.params<timestamp>,
+			created => $page.params<timestamp>,
+			#modified => $page.params<timestamp>,
+			link    => "$url/{$page.params<url>}",
 			#id      => ,   # urn:example-com:myblog:1
-			summary => %$p<abstract>,
+			summary => $page.params<abstract>,
 			author => Perl6::Maven::Atom::Author.new(
-				#name => %.authors{ %$p<author> }<author_name>.
-				name => %$p<author>,
+				#name => %.authors{ $pasge.params<author> }<author_name>.
+				name => $page.params<author>,
 				#email => '',
 			),
 		);

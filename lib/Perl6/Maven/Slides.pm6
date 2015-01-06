@@ -53,8 +53,8 @@ method update_slides() {
 		%.slides{$id}<prev_title> = $prev_title;
 
 		if $prev_page {
-			$prev_page<next_file> = "$.outdir$id";
-			$prev_page<next_title> = %.slides{$id}<title>;
+			$prev_page.params<next_file> = "$.outdir$id";
+			$prev_page.params<next_title> = %.slides{$id}<title>;
 		}
 
 		$prev_obj = %.slides{$id};
@@ -71,21 +71,21 @@ method update_slides() {
 
 			$p<show_toc_button> = 1;
 
-			$p<title> = $page<title>;
-			$p<prev_file> = $page<prev_file>  = $prev_file;
-			$p<prev_title> = $page<prev_title> = $prev_title;
+			$p<title> = $page.params<title>;
+			$p<prev_file> = $page.params<prev_file>  = $prev_file;
+			$p<prev_title> = $page.params<prev_title> = $prev_title;
 
 			if $prev_page {
-				$prev_page<next_file> = "$.outdir$p<id>";
-				$prev_page<next_title> = $page<title>;
+				$prev_page.params<next_file> = "$.outdir$p<id>";
+				$prev_page.params<next_title> = $page.params<title>;
 			} elsif $prev_obj {
 				$prev_obj<next_file> = "$.outdir$p<id>";
-				$prev_obj<next_title> = $page<title>;
+				$prev_obj<next_title> = $page.params<title>;
 			}
 
 			$prev_page = $page;
-			$prev_file = $page<url>;
-			$prev_title = $page<title>;
+			$prev_file = $page.params<url>;
+			$prev_title = $page.params<title>;
 		}
 	}
 }

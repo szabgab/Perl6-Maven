@@ -7,13 +7,9 @@ has $.outdir;
 has $.include;
 has %.params;
 
-method status() {
-	return %.params<status>;
-}
-
 method read_file($source_file, $outfile) {
 	my $fh = open $source_file, :r;
-	my %.params = (
+	%.params = (
 		content   => '',
 		title     => '',
 		timestamp => '',
@@ -119,7 +115,11 @@ method read_file($source_file, $outfile) {
 		%.params<kw>.push({ keyword => $k, url => %.params<permalink> , title => %.params<title> });
 	}
 
-	return %.params;
+	return;
 }
+method save {
+	process_template('page.tmpl', %.params<url>, %.params);
+}
+
 
 

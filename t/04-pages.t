@@ -35,16 +35,16 @@ $p.read_pages;
 
 my $pages = Perl6::Maven::Collector.get_pages;
 #diag @pages.perl;
-is_deeply $pages[0].keys.sort,
+is_deeply $pages[0].params.keys.sort,
     ("abstract",  "archive", "author", "author_img", "author_name", "comments", "content", "date", "google_profile_link",
     "keywords", "kw", "perl5title", "perl5url", "permalink", "show_index_button", "status", "timestamp", "title", "url"), 'keys';
 
-is $pages[0]<title>, 'One', 'title';
-is $pages[0]<timestamp>, '2012-07-04T16:52:02', 'timestamp';
-is $pages[0]<author>, 'szabgab', 'author';
-is $pages[0]<status>, 'show',   'status';
-is $pages[0]<url>, 'one',       'url';
-is $pages[0]<permalink>, 'http://perl6maven.com/one', 'permalink';
+is $pages[0].params<title>, 'One', 'title';
+is $pages[0].params<timestamp>, '2012-07-04T16:52:02', 'timestamp';
+is $pages[0].params<author>, 'szabgab', 'author';
+is $pages[0].params<status>, 'show',   'status';
+is $pages[0].params<url>, 'one',       'url';
+is $pages[0].params<permalink>, 'http://perl6maven.com/one', 'permalink';
 
 my $sitemap = Perl6::Maven::Collector.create_sitemap;
 my $expected_sitemap = '<?xml version="1.0" encoding="UTF-8"?>
