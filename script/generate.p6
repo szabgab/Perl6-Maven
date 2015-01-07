@@ -17,7 +17,7 @@ multi MAIN(Bool :$help!) {
 multi MAIN(
 	Str  :$indir   is copy,
 	Str  :$outdir!,
-	Bool :$skip-pages = False,
+	Bool :$pages = False,
 	) {
 	usage("--indir was missing") if not $indir;
 	usage('avoid updirs') if $outdir ~~ m/\.\./;
@@ -40,13 +40,13 @@ multi MAIN(
 	my %index;
 	my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors, outdir => '', include => "$indir/files/");
 	$pages.read_pages;
-	$pages.save_pages if not $skip-pages;
+	$pages.save_pages if $pages;
 
 	my $slides = Perl6::Maven::Slides.new(source_dir => "$indir/pages/tutorial", authors => $authors.authors, outdir => 'tutorial/', include => "$indir/files/");
 	$slides.read_yml;
 	$slides.read_pages;
 	$slides.update_slides;
-	$slides.save_pages if not $skip-pages;
+	$slides.save_pages if $pages;
 	$slides.save_indexes();
 
 	Perl6::Maven::Collector.create_main();
