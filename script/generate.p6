@@ -38,9 +38,9 @@ multi MAIN(
 
 
 	my %index;
-	my $pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors, outdir => '', include => "$indir/files/");
-	$pages.read_pages;
-	$pages.save_pages if $pages;
+	my $pm_pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors, outdir => '', include => "$indir/files/");
+	$pm_pages.read_pages;
+	$pm_pages.save_pages if $pages;
 
 	my $slides = Perl6::Maven::Slides.new(source_dir => "$indir/pages/tutorial", authors => $authors.authors, outdir => 'tutorial/', include => "$indir/files/");
 	$slides.read_yml;
@@ -50,7 +50,8 @@ multi MAIN(
 	$slides.save_indexes();
 
 	Perl6::Maven::Collector.create_main();
-	Perl6::Maven::Collector.create_index();
+	Perl6::Maven::Collector.save_index_json();
+	Perl6::Maven::Collector.save_index_page() if $pages;
 	Perl6::Maven::Collector.create_archive();
 	save_file('atom', Perl6::Maven::Collector.create_atom_feed);
 	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());

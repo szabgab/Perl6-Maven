@@ -18,21 +18,28 @@ method add_index(%index) {
 	return;
 }
 
-method create_index() {
+method save_index_json() {
 	return if not %.indexes;
+	save_file( 'index.json',to-json(%.indexes) );
+}
 
+method generate_index_page() {
 	my @index;
 	for %.indexes.keys.sort -> $k {
 		@index.push({ word => $k, entries => %.indexes{$k}.item });
 	}
 
 	my %params = (
-		title    => 'Perl 6 Maven Index',
+		title    => config<site_title> ~ ' Index',
 		keywords => @index.item,
 	);
-	save_template('index.tmpl', 'index', %params);
+	return process_template('index.tmpl', %params);
+}
 
-	save_file( 'index.json',to-json(%.indexes) );
+method save_index_page() {
+	my $output = self.generate_index_page();
+	save_file('index', $output);
+
 	return;
 }
 
