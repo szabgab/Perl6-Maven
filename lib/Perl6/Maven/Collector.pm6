@@ -18,15 +18,16 @@ method add_index(%index) {
 	return;
 }
 
-method save_index_json() {
+method get_index_json() {
 	return if not %.indexes;
-	save_file( 'index.json',to-json(%.indexes) );
+	return to-json(%.indexes);
 }
 
-method generate_index_page() {
+method create_index_page( $json ) {
+	my $indexes = from-json($json);
 	my @index;
-	for %.indexes.keys.sort -> $k {
-		@index.push({ word => $k, entries => %.indexes{$k}.item });
+	for $indexes.keys.sort -> $k {
+		@index.push({ word => $k, entries => $indexes{$k}.item });
 	}
 
 	my %params = (
@@ -36,12 +37,6 @@ method generate_index_page() {
 	return process_template('index.tmpl', %params);
 }
 
-method save_index_page() {
-	my $output = self.generate_index_page();
-	save_file('index', $output);
-
-	return;
-}
 
 # for now we only push the list here but don't use
 # it, later, this should be the source for the index
@@ -89,21 +84,16 @@ method create_archive() {
 	save_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.map({ $_.params.item }).item });
 }
 
-method save_main_json() {
-	my $front = self._create_main();
-	save_file( 'main.json',to-json($front) );
-}
-method save_main_page() {
-	my $front = self._create_main();
+method create_main_page($json) {
+	my $front = from-json ($json);
 	my %params = (
 		title => config<site_title>,
 		pages => $front,
 	);
-	save_template('main.tmpl', 'main', %params);
-	return;
+	return process_template('main.tmpl', %params);
 }
 
-method _create_main() {
+method get_main_json() {
 	my @front;
 	my $count;
 	for self.archived_pages -> $page {
@@ -115,7 +105,7 @@ method _create_main() {
 		@front.push($page.params.item);
 		last if $count >= config<front_page_limit>;
 	}
-	return @front.item;
+	return to-json( @front.item );
 }
 
 method create_atom_feed() {

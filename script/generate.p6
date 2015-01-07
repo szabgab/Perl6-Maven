@@ -49,10 +49,16 @@ multi MAIN(
 	$slides.save_pages if $pages;
 	$slides.save_indexes();
 
-	Perl6::Maven::Collector.save_main_json();
-	Perl6::Maven::Collector.save_main_page() if $page;
-	Perl6::Maven::Collector.save_index_json();
-	Perl6::Maven::Collector.save_index_page() if $pages;
+	my $main_json = Perl6::Maven::Collector.get_main_json();
+	save_file( 'main.json', $main_json );
+	save_file( 'main', Perl6::Maven::Collector.create_main_page( $main_json ) );
+	save_file( 'main', Perl6::Maven::Collector.create_main_page( $main_json ) ) if $pages;
+
+	my $index_json = Perl6::Maven::Collector.get_index_json();
+	save_file( 'index.json', $index_json  );
+	save_file( 'index', Perl6::Maven::Collector.create_index_page( $index_json ) ); 
+	save_file( 'index', Perl6::Maven::Collector.create_index_page( $index_json ) ) if $pages;
+
 	Perl6::Maven::Collector.create_archive();
 	save_file('atom', Perl6::Maven::Collector.create_atom_feed);
 	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());
