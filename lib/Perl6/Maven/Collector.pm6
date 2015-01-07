@@ -89,7 +89,21 @@ method create_archive() {
 	save_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.map({ $_.params.item }).item });
 }
 
-method create_main() {
+method save_main_json() {
+	my $front = self._create_main();
+	save_file( 'main.json',to-json($front) );
+}
+method save_main_page() {
+	my $front = self._create_main();
+	my %params = (
+		title => config<site_title>,
+		pages => $front,
+	);
+	save_template('main.tmpl', 'main', %params);
+	return;
+}
+
+method _create_main() {
 	my @front;
 	my $count;
 	for self.archived_pages -> $page {
@@ -101,13 +115,7 @@ method create_main() {
 		@front.push($page.params.item);
 		last if $count >= config<front_page_limit>;
 	}
-
-	my %params = (
-		title => config<site_title>,
-		pages => @front.item,
-	);
-	save_template('main.tmpl', 'main', %params);
-	return;
+	return @front.item;
 }
 
 method create_atom_feed() {

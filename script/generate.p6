@@ -49,7 +49,8 @@ multi MAIN(
 	$slides.save_pages if $pages;
 	$slides.save_indexes();
 
-	Perl6::Maven::Collector.create_main();
+	Perl6::Maven::Collector.save_main_json();
+	Perl6::Maven::Collector.save_main_page() if $page;
 	Perl6::Maven::Collector.save_index_json();
 	Perl6::Maven::Collector.save_index_page() if $pages;
 	Perl6::Maven::Collector.create_archive();
