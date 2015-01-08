@@ -40,7 +40,7 @@ multi MAIN(
 	my %index;
 	my $pm_pages = Perl6::Maven::Pages.new(source_dir => "$indir/pages", authors => $authors.authors, outdir => '', include => "$indir/files/");
 	$pm_pages.read_pages;
-	$pm_pages.save_pages if $pages;
+	$pm_pages.save_pages(sub ($file) { return $file }) if $pages;
 
 	my $slides = Perl6::Maven::Slides.new(source_dir => "$indir/pages/tutorial", authors => $authors.authors, outdir => 'tutorial/', include => "$indir/files/");
 	$slides.read_yml;

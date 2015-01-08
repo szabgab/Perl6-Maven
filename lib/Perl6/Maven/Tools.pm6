@@ -27,14 +27,6 @@ sub rdir($path) is export {
 	return @files;
 }
 
-
-sub save_template($template, $outfile, %params) is export {
-	debug("processing template $template to $outfile");
-	my $output = process_template($template, %params);
-	save_file($outfile, $output);
-	return;
-}
-
 sub process_template($template, %params) is export {
 	%params<site_title> = %config<site_title>;
 

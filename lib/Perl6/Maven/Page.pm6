@@ -122,9 +122,6 @@ method generate {
 	process_template('page.tmpl', %.params);
 }
 
-method save {
-	save_template('page.tmpl', %.params<url>, %.params);
-}
 
 
 

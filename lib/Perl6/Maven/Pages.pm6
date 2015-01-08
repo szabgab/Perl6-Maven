@@ -11,10 +11,10 @@ has $.outdir;
 has $.include;
 
 
-method save_pages() {
+method save_pages(&path) {
 	debug("save pages");
 	for Perl6::Maven::Collector.get_pages -> $page {
-		$page.save;
+		save_file( &path($page.params<url>), $page.generate );
 	}
 
 	return;
