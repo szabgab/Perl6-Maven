@@ -99,6 +99,7 @@ multi MAIN(
 			}
 		}
 
+		status 404;
 		return 'Not found';
 	}
 
