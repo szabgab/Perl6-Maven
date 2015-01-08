@@ -47,11 +47,15 @@ multi MAIN(
 	$slides.read_pages;
 	$slides.update_slides;
 	$slides.save_pages if $pages;
-	my $chapters_json = $slides.get_chapters_json();
-	save_file( 'tutorial/chapters.json', $chapters_json );
-	#$slides.save_indexes();
-	save_file( 'tutorial/toc', Perl6::Maven::Collector.create_toc_page($chapters_json));
-	save_file( 'tutorial/toc', Perl6::Maven::Collector.create_toc_page($chapters_json)) if $pages;
+	my $slides_json = $slides.get_slides_json();
+	save_file( 'tutorial/slides.json', $slides_json );
+	my $slides_data = from-json $slides_json;
+	if $pages {
+		save_file( 'tutorial/toc', Perl6::Maven::Collector.create_toc_page($slides_json));
+		for $slides_data.keys -> $id {
+			save_file( "tutorial/$id", Perl6::Maven::Collector.create_chapters_page( $slides_data{$id} ) );
+		}
+	}
 
 	my $main_json = Perl6::Maven::Collector.get_main_json();
 	save_file( 'main.json', $main_json );

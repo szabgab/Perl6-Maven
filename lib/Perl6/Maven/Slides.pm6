@@ -90,19 +90,8 @@ method update_slides() {
 	}
 }
 
-method create_chapters_pages() {
-	#save_template('slides_chapter.tmpl', "tutorial/$id", %.slides{$id});
-}
-
-method get_chapters_json() {
-	my @chapters;
-	for %.slides.keys -> $id {
-		#debug("ID $id");
-		%.slides{$id}<content> //= '';
-		%.slides{$id}<id> = $id;
-		@chapters.push(%.slides{$id});
-	}
-	return to-json @chapters.item;
+method get_slides_json() {
+	return to-json %.slides.item;
 }
 
 # vim: ft=perl6

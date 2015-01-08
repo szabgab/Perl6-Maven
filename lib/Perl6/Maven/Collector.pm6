@@ -163,15 +163,29 @@ method create_atom_feed() {
 }
 
 method create_toc_page($json) {
-	my $chapters = from-json $json;
+	my $slides = from-json $json;
+
+	my @chapters;
+	for $slides.keys -> $id {
+		$slides{$id}<content> //= '';
+		$slides{$id}<id> = $id;
+		@chapters.push($slides{$id});
+	}
+
 	my %data = (
 		title => "The Perl Maven's Perl 6 Tutorial",
-		chapters => $chapters,
+		chapters => @chapters.item,
 		content => ''
 	);
 
 	return process_template('slides_toc.tmpl', %data);
 }
+
+method create_chapters_page($data) {
+	$data<content> //= '';
+	return process_template('slides_chapter.tmpl', $data);
+}
+
 
 
 
