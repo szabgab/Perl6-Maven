@@ -60,7 +60,7 @@ multi MAIN(
 #		jpg => 'image/jpeg',
 #	);
 
-	get / '/' (.+) / => sub ($file) {
+	get / '/' (.+) / => sub ($file is copy) {
 		#my $full_path = "$static_dir/$file";
 	    #if $full_path.IO ~~ :e {
 			# TODO set content-type !
@@ -71,6 +71,9 @@ multi MAIN(
 			#my $out = open($full_path, :r).read($full_path.IO.s);
 			#return $out.Str;
 		#}
+		if $file ~~ /\/$/ {
+			$file ~= 'main';
+		}
 		my $txt_file = "$source/pages/$file.txt";
 		#return $txt_file;
 		if $txt_file.IO ~~ :e {
