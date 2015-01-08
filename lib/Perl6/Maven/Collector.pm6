@@ -81,7 +81,15 @@ method archived_pages() {
 
 method get_archive_json() {
 	my @p = self.archived_pages();
-	return to-json( @p.map({ $_.params.item }).item );
+	my @data;
+	for @p -> $e {
+		@data.push( {
+			url => $e.params<url>,
+			title => $e.params<title>,
+			date => $e.params<date>,
+		} );
+	}
+	return to-json( @data.item );
 }
 
 method create_archive_page($json) {
