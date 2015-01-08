@@ -35,9 +35,10 @@ multi MAIN(
 	}
 
 	get '/tutorial/toc' => sub {
-		my $json = "$meta/tutorial/chapters.json".IO.slurp;
+		my $json = "$meta/tutorial/slides.json".IO.slurp;
 		return Perl6::Maven::Collector.create_toc_page( $json );
 	}
+
 
 #get '/robots.txt' => sub {
 #	"Sitemap: http://perl6maven.com/sitemap.xml";
@@ -77,6 +78,16 @@ multi MAIN(
 			$page.read_file($txt_file, '');
 			return $page.generate;
 		}
+
+		if $file ~~ /tutorial\/(.*)/ {
+			my $page = $/[0];
+			my $json = "$meta/tutorial/slides.json".IO.slurp;
+			my $slides_data = from-json $json;
+			if $slides_data{$page} {
+				return Perl6::Maven::Collector.create_chapters_page( $slides_data{$page} );
+			}
+		}
+
 		return 'Not found';
 	}
 
