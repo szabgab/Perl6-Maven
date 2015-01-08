@@ -86,7 +86,7 @@ multi MAIN(
 		#return $txt_file;
 		if $txt_file.IO ~~ :e {
 			my $page = Perl6::Maven::Page.new(authors => $authors.authors, include => $include_dir, outdir => '');
-			$page.read_file($txt_file, '');
+			$page.read_file($txt_file, $file);
 			return $page.generate;
 		}
 
