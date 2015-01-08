@@ -24,6 +24,14 @@ multi MAIN(
 		return Perl6::Maven::Collector.create_main_page( $json );
 	}
 
+	get any('/atom', '/sitemap.xml') => sub {
+		#return request.path;
+		my $path = $meta ~ request.path;
+		if $path.IO.e {
+			return open($path).slurp;
+		}
+	}
+
 	get '/index' => sub {
 		my $json = "$meta/index.json".IO.slurp;
 		return Perl6::Maven::Collector.create_index_page( $json );
