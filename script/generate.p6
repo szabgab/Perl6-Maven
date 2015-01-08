@@ -57,7 +57,10 @@ multi MAIN(
 	save_file( 'index.json', $index_json  );
 	save_file( 'index', Perl6::Maven::Collector.create_index_page( $index_json ) ) if $pages;
 
-	Perl6::Maven::Collector.create_archive();
+	my $archive_json = Perl6::Maven::Collector.get_archive_json();
+	save_file( 'archive.json', $archive_json  );
+	save_file( 'archive', Perl6::Maven::Collector.create_archive_page($archive_json) ) if $pages;
+
 	save_file('atom', Perl6::Maven::Collector.create_atom_feed);
 	save_file('sitemap.xml', Perl6::Maven::Collector.create_sitemap());
 

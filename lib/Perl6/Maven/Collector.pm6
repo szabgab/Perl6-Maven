@@ -79,9 +79,13 @@ method archived_pages() {
 	return %pages.values.grep({ $_.params<archive> }).sort({ $^b.params<timestamp> cmp $^a.params<timestamp> });
 }
 
-method create_archive() {
+method get_archive_json() {
 	my @p = self.archived_pages();
-	save_template('archive.tmpl', 'archive', { title => 'Archives', pages => @p.map({ $_.params.item }).item });
+	return to-json( @p.map({ $_.params.item }).item );
+}
+
+method create_archive_page($json) {
+	process_template('archive.tmpl', { title => 'Archives', pages => from-json($json) });
 }
 
 method create_main_page($json) {
