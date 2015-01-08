@@ -4,12 +4,14 @@ use Bailador;
 use lib 'lib';
 
 use Perl6::Maven::Tools;
+use Perl6::Maven::Collector;
 use Perl6::Maven::Authors;
 use Perl6::Maven::Page;
 
 
 multi MAIN(
 	Str  :$source!,
+	Str  :$meta!,
 	) {
 
 	read_config($source);
@@ -18,7 +20,8 @@ multi MAIN(
 
 
 	get '/' => sub {
-		'root';
+		my $main_json = "$meta/main.json".IO.slurp;
+		return Perl6::Maven::Collector.create_main_page( $main_json );
 	}
 
 
