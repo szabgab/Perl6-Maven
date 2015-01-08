@@ -50,7 +50,7 @@ multi MAIN(
 	$slides.update_slides;
 	my $lookup_json = Perl6::Maven::Collector.get_lookup_json();
 	save_file( 'tutorial/lookup.json', $lookup_json );
-	$slides.save_pages if $pages;
+	$slides.save_pages(sub ($file) { return $file }) if $pages;
 	my $slides_json = $slides.get_slides_json();
 	save_file( 'tutorial/slides.json', $slides_json );
 	my $slides_data = from-json $slides_json;
