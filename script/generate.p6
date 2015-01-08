@@ -33,7 +33,9 @@ multi MAIN(
 	}
 
 	mkpath $outdir;
-	shell("cp -r files/* $outdir"); # TODO Perl based recursive copy!
+	if $pages {
+		shell("cp -r files/* $outdir"); # TODO Perl based recursive copy!
+	}
 	set_outdir($outdir);
 
 
@@ -46,6 +48,8 @@ multi MAIN(
 	$slides.read_yml;
 	$slides.read_pages;
 	$slides.update_slides;
+	my $lookup_json = Perl6::Maven::Collector.get_lookup_json();
+	save_file( 'tutorial/lookup.json', $lookup_json );
 	$slides.save_pages if $pages;
 	my $slides_json = $slides.get_slides_json();
 	save_file( 'tutorial/slides.json', $slides_json );

@@ -55,6 +55,17 @@ method get_pages() {
 	return values %pages;
 }
 
+method get_lookup_json() {
+	my %lookup;
+	for %pages.keys -> $k {
+		for <title prev_file prev_title next_file next_title> -> $field {
+			%lookup{$k}{$field} = %pages{$k}.params{$field};
+		}
+	}
+	return to-json %lookup.item;
+}
+
+
 method create_sitemap() {
 	my $xml = qq{<?xml version="1.0" encoding="UTF-8"?>\n};
 	$xml ~= qq{<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n};

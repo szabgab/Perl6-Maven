@@ -82,11 +82,20 @@ multi MAIN(
 		if $file ~~ /\/$/ {
 			$file ~= 'main';
 		}
+		my $lookup = from-json open("$meta/tutorial/lookup.json").slurp;
+		#return $lookup.perl;
+
 		my $txt_file = "$source/pages/$file.txt";
 		#return $txt_file;
 		if $txt_file.IO ~~ :e {
 			my $page = Perl6::Maven::Page.new(authors => $authors.authors, include => $include_dir, outdir => '');
 			$page.read_file($txt_file, $file);
+			if $lookup{$file} {
+				#return $lookup{$file}.perl;
+				for <prev_file prev_title next_file next_title> -> $field {
+					$page.params{$field} = $lookup{$file}{$field};
+				}
+			}
 			return $page.generate;
 		}
 
