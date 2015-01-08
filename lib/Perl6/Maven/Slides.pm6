@@ -90,22 +90,19 @@ method update_slides() {
 	}
 }
 
-method save_indexes() {
+method create_chapters_pages() {
+	#save_template('slides_chapter.tmpl', "tutorial/$id", %.slides{$id});
+}
+
+method get_chapters_json() {
 	my @chapters;
 	for %.slides.keys -> $id {
 		#debug("ID $id");
 		%.slides{$id}<content> //= '';
-		save_template('slides_chapter.tmpl', "tutorial/$id", %.slides{$id});
 		%.slides{$id}<id> = $id;
 		@chapters.push(%.slides{$id});
 	}
-	my %data = (
-		title => "The Perl Maven's Perl 6 Tutorial",
-		chapters => @chapters,
-		content => ''
-	);
-
-	save_template('slides_toc.tmpl', "tutorial/toc", %data);
+	return to-json @chapters.item;
 }
 
 # vim: ft=perl6

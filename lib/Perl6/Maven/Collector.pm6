@@ -162,6 +162,17 @@ method create_atom_feed() {
 	return $atom.Str;
 }
 
+method create_toc_page($json) {
+	my $chapters = from-json $json;
+	my %data = (
+		title => "The Perl Maven's Perl 6 Tutorial",
+		chapters => $chapters,
+		content => ''
+	);
+
+	return process_template('slides_toc.tmpl', %data);
+}
+
 
 
 # vim: ft=perl6

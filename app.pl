@@ -34,6 +34,11 @@ multi MAIN(
 		return Perl6::Maven::Collector.create_archive_page( $json );
 	}
 
+	get '/tutorial/toc' => sub {
+		my $json = "$meta/tutorial/chapters.json".IO.slurp;
+		return Perl6::Maven::Collector.create_toc_page( $json );
+	}
+
 #get '/robots.txt' => sub {
 #	"Sitemap: http://perl6maven.com/sitemap.xml";
 #}
