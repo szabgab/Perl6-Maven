@@ -20,10 +20,19 @@ multi MAIN(
 
 
 	get '/' => sub {
-		my $main_json = "$meta/main.json".IO.slurp;
-		return Perl6::Maven::Collector.create_main_page( $main_json );
+		my $json = "$meta/main.json".IO.slurp;
+		return Perl6::Maven::Collector.create_main_page( $json );
 	}
 
+	get '/index' => sub {
+		my $json = "$meta/index.json".IO.slurp;
+		return Perl6::Maven::Collector.create_index_page( $json );
+	}
+
+	get '/archive' => sub {
+		my $json = "$meta/archive.json".IO.slurp;
+		return Perl6::Maven::Collector.create_archive_page( $json );
+	}
 
 #get '/robots.txt' => sub {
 #	"Sitemap: http://perl6maven.com/sitemap.xml";
