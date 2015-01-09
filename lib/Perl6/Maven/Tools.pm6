@@ -41,7 +41,7 @@ sub process_template($template, %params) is export {
 
 sub save_file($outfile, $content) is export {
 	debug("save_file $outfile");
-	my $file = "$outdir/" ~ $outfile;
+	my $file = $outfile;
 	mkpath dirname $file;
 	my $out = open $file, :w;
 	$out.print($content);
