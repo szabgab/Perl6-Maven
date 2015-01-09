@@ -1,0 +1,1 @@
+perl6 -Ilib app.pl --source=/home/gabor/work/perl6maven.com/ --meta=/home/gabor/work/perl6maven-live.com/
