@@ -3,6 +3,10 @@
     </div>
 
     <div class="span3">
+% if %h<github_link> {
+       <a class="btn btn-default" href="<%= %h<github_link> %>" role="button">Suggest a change</a>
+% }
+
        <h3>Perl 6 Tricks and Treats newsletter</h3>
        Register to the free newsletter now, and get updates and news.
        <form method=POST action="http://mail.szabgab.com/mailman/subscribe/perl6">

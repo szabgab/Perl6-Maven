@@ -96,6 +96,7 @@ multi MAIN(
 					$page.params{$field} = $lookup{$file}{$field};
 				}
 			}
+			$page.params<github_link> = "https://github.com/szabgab/perl6maven.com/tree/main/pages/" ~ $page.params<url> ~ '.txt';
 			return $page.generate;
 		}
 
