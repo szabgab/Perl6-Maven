@@ -14,6 +14,7 @@ multi MAIN(
 	Str  :$meta!,
 	) {
 
+
 	read_config($source);
 	my $authors = Perl6::Maven::Authors.new( source_dir => $source);
 	$authors.read_authors;
@@ -69,6 +70,7 @@ multi MAIN(
 #	);
 
 	get / '/' (.+) / => sub ($file is copy) {
+		my $start = now;
 		#my $full_path = "$static_dir/$file";
 	    #if $full_path.IO ~~ :e {
 			# TODO set content-type !
@@ -97,7 +99,11 @@ multi MAIN(
 				}
 			}
 			$page.params<github_link> = "https://github.com/szabgab/perl6maven.com/tree/main/pages/" ~ $page.params<url> ~ '.txt';
-			return $page.generate;
+			my $content = $page.generate;
+			my $end = now;
+			my $elapsed = $end-$start;
+			$content.=subst(/ELAPSED_TIME/, $elapsed);
+			return $content;
 		}
 
 		if $file ~~ /tutorial\/(.*)/ {
