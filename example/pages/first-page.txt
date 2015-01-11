@@ -1,0 +1,24 @@
+=title First page
+=timestamp 2014-12-29T12:52:02
+=author szabgab
+=keywords First, page
+=status show
+=archive 1
+
+=abstract start
+
+This is the abstract
+
+=abstract end
+
+This is the content
+
+<include file="first" />
+
+And an embedded code example:
+
+<code lang="perl6">
+say "code sample";
+</code>
+
+

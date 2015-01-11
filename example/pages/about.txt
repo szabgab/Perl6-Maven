@@ -1,0 +1,7 @@
+=title About The sample site
+=timestamp 2012-06-27T19:55:00
+=status show
+=comments 0
+
+Sample About page
+
