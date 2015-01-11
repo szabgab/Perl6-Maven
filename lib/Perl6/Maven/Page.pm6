@@ -21,7 +21,7 @@ method read_file($source_file, $outfile) {
 		show_index_button => 1,
 	);
 
-	my $in_abstract = 0;
+	my $in_abstract = False;
 	my $in_code = 0;
 	for $fh.lines -> $line {
 		#debug("Line $line");
@@ -67,7 +67,13 @@ method read_file($source_file, $outfile) {
 					}
 				}
 				when 'abstract' {
-					$in_abstract = $value eq 'start' ?? 1 !! 0;
+					if $value eq 'start' {
+						$in_abstract = True;
+					} elsif $value eq 'end' {
+						$in_abstract = False;
+					} else {
+						die "Invalid =abstract value: '$value'";
+					}
 				}
 				default {
 					die "Invalid field '$field' in '$source_file'";
@@ -97,11 +103,14 @@ method read_file($source_file, $outfile) {
 
 		$row ~~ s:g/\<hl\>/<span class="label">/;
 		$row ~~ s:g/\<\/hl\>/<\/span>/;
-		if ($in_abstract) {
+		if $in_abstract {
 			%.params<abstract> ~= "$row\n";
 			next;
 		}
 		%.params<content> ~= "$row\n";
+	}
+	if $in_abstract {
+		die 'Abstract has not ended';
 	}
 	#die "No keywords found in $source_file" if not %.params<keywords>;
 
