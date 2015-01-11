@@ -29,7 +29,7 @@ multi MAIN(
 		#return request.path;
 		my $path = $meta ~ request.path;
 		if $path.IO.e {
-			return open($path).slurp;
+			return open($path).slurp-rest;
 		}
 	}
 
@@ -84,7 +84,7 @@ multi MAIN(
 		if $file ~~ /\/$/ {
 			$file ~= 'main';
 		}
-		my $lookup = from-json open("$meta/tutorial/lookup.json").slurp;
+		my $lookup = from-json open("$meta/tutorial/lookup.json").slurp-rest;
 		#return $lookup.perl;
 
 		my $txt_file = "$source/pages/$file.txt";
