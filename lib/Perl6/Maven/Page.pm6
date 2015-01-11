@@ -22,7 +22,7 @@ method read_file($source_file, $outfile) {
 	);
 
 	my $in_abstract = False;
-	my $in_code = 0;
+	my $in_code = False;
 	for $fh.lines -> $line {
 		#debug("Line $line");
 		if $line ~~ m/^\=(\w+) \s+ (.*)/ {
@@ -84,10 +84,10 @@ method read_file($source_file, $outfile) {
 		my $row = ($line eq '' and not $in_code) ?? '<p>' !! $line; # TODO $line is read only here
 		if $row ~~ /^\<code   (\s+ lang\=\".*\")?   \>\s*$/ {
 			$row = '<pre>';
-			$in_code = 1;
+			$in_code = True;
 		} elsif $row ~~ /\<\/code\>/ {
 			$row = '</pre>';
-			$in_code = 0;
+			$in_code = False;
 		} elsif $in_code {
 			$row ~~ s:g/\</&lt;/;
 			$row ~~ s:g/\>/&gt;/;
@@ -111,6 +111,9 @@ method read_file($source_file, $outfile) {
 	}
 	if $in_abstract {
 		die 'Abstract has not ended';
+	}
+	if $in_code {
+		die 'Code has not ended';
 	}
 	#die "No keywords found in $source_file" if not %.params<keywords>;
 
