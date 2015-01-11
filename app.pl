@@ -14,6 +14,8 @@ multi MAIN(
 	Str  :$meta!,
 	) {
 
+	my $counter = 30;
+
 
 	read_config($source);
 	my $authors = Perl6::Maven::Authors.new( source_dir => $source);
@@ -21,11 +23,14 @@ multi MAIN(
 
 
 	get '/' => sub {
+		$counter--;
 		my $json = "$meta/main.json".IO.slurp;
 		return Perl6::Maven::Collector.create_main_page( $json );
 	}
 
 	get any('/atom', '/sitemap.xml', '/index.json') => sub {
+		$counter--;
+		free-memory() if $counter <= 0;
 		#return request.path;
 		my $path = $meta ~ request.path;
 		if $path.IO.e {
@@ -34,16 +39,19 @@ multi MAIN(
 	}
 
 	get '/index' => sub {
+		$counter--;
 		my $json = "$meta/index.json".IO.slurp;
 		return Perl6::Maven::Collector.create_index_page( $json );
 	}
 
 	get '/archive' => sub {
+		$counter--;
 		my $json = "$meta/archive.json".IO.slurp;
 		return Perl6::Maven::Collector.create_archive_page( $json );
 	}
 
 	get '/tutorial/toc' => sub {
+		$counter--;
 		my $json = "$meta/tutorial/slides.json".IO.slurp;
 		return Perl6::Maven::Collector.create_toc_page( $json );
 	}
@@ -70,6 +78,7 @@ multi MAIN(
 #	);
 
 	get / '/' (.+) / => sub ($file is copy) {
+		$counter--;
 		my $start = now;
 		#my $full_path = "$static_dir/$file";
 	    #if $full_path.IO ~~ :e {
@@ -115,6 +124,7 @@ multi MAIN(
 			}
 		}
 
+		free-memory() if $counter <= 0;
 		status 404;
 		return 'Not found';
 	}
@@ -122,3 +132,8 @@ multi MAIN(
 	baile;
 }
 
+sub free-memory {
+	# A temporary solution till Rakudo learns how to free memory itself
+	debug('Viva la memoria!');
+	exit;
+}
