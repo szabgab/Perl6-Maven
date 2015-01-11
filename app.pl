@@ -101,6 +101,8 @@ multi MAIN(
 			}
 		}
 
+		warning("Path to '$file' not found");
+
 		free-memory() if $counter <= 0;
 		status 404;
 		return 'Not found';
