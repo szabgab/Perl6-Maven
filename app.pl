@@ -61,35 +61,12 @@ multi MAIN(
 #	"Sitemap: http://perl6maven.com/sitemap.xml";
 #}
 
-	#my $root = $*CWD;
-	#if $*PROGRAM_NAME ~~ /\// {
-	#}
-	#my $$static_dir = "$root/files";
 	my $pages_dir = "$source/pages";
 	my $include_dir = "$source/files/";
-
-#	my %CT = (
-#		js  => 'application/javascript',
-#		css => 'text/css',
-#		png => 'image/png',
-#		ico => 'image/x-icon',
-#		gif => 'image/gif',
-#		jpg => 'image/jpeg',
-#	);
 
 	get / '/' (.+) / => sub ($file is copy) {
 		$counter--;
 		my $start = now;
-		#my $full_path = "$static_dir/$file";
-	    #if $full_path.IO ~~ :e {
-			# TODO set content-type !
-			#my $ext = $full_path ~~ /\.(<[a..z]>+)$/;
-			#if $ext and %CT{$ext} {
-			#	content_type(%CT{$ext});
-			#}
-			#my $out = open($full_path, :r).read($full_path.IO.s);
-			#return $out.Str;
-		#}
 		if $file ~~ /\/$/ {
 			$file ~= 'main';
 		}
