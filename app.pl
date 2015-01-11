@@ -1,7 +1,7 @@
 use v6;
-use Bailador;
 
 use lib 'lib';
+use Bailador;
 
 use Perl6::Maven::Tools;
 use Perl6::Maven::Collector;
