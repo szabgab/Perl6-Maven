@@ -8,6 +8,7 @@ has $.include;
 has %.params;
 
 method read_file($source_file, $outfile) {
+	debug("Opening file '$source_file'");
 	my $fh = open $source_file, :r;
 	%.params = (
 		content   => '',
@@ -27,8 +28,6 @@ method read_file($source_file, $outfile) {
 		#debug("Line $line");
 		if $line ~~ m/^\=(\w+) \s+ (.*)/ {
 			my ($field, $value) = $0, $1;
-			#say $field;
-			#say $value;
 			given $field {
 				when 'title' {
 					%.params<title> = $value.Str;

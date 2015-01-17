@@ -12,10 +12,18 @@ sub set_outdir($d) is export {
 }
 
 sub debug is export {
-	say 'DEBUG: ', @_; # if $*ENV<DEBUG>;
+	log('DEBUG', @_);
 }
 sub warning is export {
-	say 'WARNING: ', @_; # if $*ENV<DEBUG>;
+	log('WARNING', @_);
+}
+
+sub log {
+	my ($level, @msg) = @_;
+	mkdir 'logs';
+	my $fh = open 'logs/log.txt', :a;
+	$fh.say("$level: ", @_);
+	$fh.close;
 }
 
 sub rdir($path) is export {
