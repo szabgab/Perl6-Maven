@@ -6,18 +6,22 @@ The code generating the http://perl6maven.com/ site.
 
 In order to build the pages
 
-    * Build Rakudo Star (2014.12.1 worked)  http://perl6maven.com/tutorial/perl6-installing-rakudo
+    * Build Rakudo Star (2015.07 worked)  http://perl6maven.com/tutorial/perl6-installing-rakudo
     * git clone https://github.com/szabgab/perl6maven.com.git
     * git clone https://github.com/szabgab/Perl6-Maven.git       (this repository)
     * cd Perl6-Maven
     * time perl6 -Ilib script/generate.p6 --outdir=/home/gabor/work/perl6maven-live.com --indir=/home/gabor/work/perl6maven.com/
 
-It took about 7 minutes to generate all the pages using Rakudo Star 2014.09 on MacBook Air
+It took about 3 minutes to generate all the pages using Rakudo Star 2015.07 on MacBook Air
 
 
 To run all the test try:
 
 prove -e 'perl6 -Ilib' t/
+
+or
+
+PERL6LIB=lib prove -v -r -j1 --exec=perl6 t
 
 
 TODO: Generic web site related

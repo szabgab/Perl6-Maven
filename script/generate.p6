@@ -83,7 +83,7 @@ sub usage($msg?) {
 	say $msg if $msg;
 
 	print "
-Usage: $*PROGRAM_NAME
+Usage: $*PROGRAM-NAME
    --outdir /path/to/output/directory
    --indir  /path/to/source/of/pages
 ";
