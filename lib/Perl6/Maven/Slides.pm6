@@ -66,7 +66,8 @@ method update_slides() {
 			debug("slide $p<id>");
 			my $page = Perl6::Maven::Collector.get_page( "$.outdir$p<id>" );
 			if not $page {
-				die "Missing page for '$p<id>'. Is there a typo in pages.yml ?"; 
+				warn "Missing page for '$p<id>'. Is there a typo in pages.yml ?"; 
+				next;
 			}
 
 			$p<show_toc_button> = 1;
