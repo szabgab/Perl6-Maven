@@ -16,7 +16,7 @@ $authors.read_authors;
 my $slides = Perl6::Maven::Slides.new(source_dir => "$source_dir/pages/tutorial", authors => $authors.authors, outdir => 'tutorial/', include => $source_dir);
 $slides.read_yml;
 
-is_deeply $slides.slides, {
+is-deeply $slides.slides, {
 	"perl6-introduction" => {
 		"title" => "title Introduction to Perl 6",
 		"pages" => [
