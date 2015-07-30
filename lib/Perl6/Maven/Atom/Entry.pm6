@@ -1,4 +1,4 @@
-class Perl6::Maven::Atom::Entry;
+unit class Perl6::Maven::Atom::Entry;
 
 has $.title;
 has $.summary;

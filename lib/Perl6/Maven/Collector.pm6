@@ -1,4 +1,4 @@
-class Perl6::Maven::Collector;
+unit class Perl6::Maven::Collector;
 
 use Perl6::Maven::Tools;
 use Perl6::Maven::Atom;

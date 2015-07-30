@@ -1,4 +1,4 @@
-class Perl6::Maven::Atom;
+unit class Perl6::Maven::Atom;
 
 use Perl6::Maven::Atom::Author;
 use Perl6::Maven::Atom::Entry;

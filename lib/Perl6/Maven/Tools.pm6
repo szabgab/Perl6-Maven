@@ -1,4 +1,4 @@
-module Perl6::Maven::Tools;
+unit module Perl6::Maven::Tools;
 
 use Template::Mojo;
  

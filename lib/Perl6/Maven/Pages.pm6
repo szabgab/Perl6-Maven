@@ -1,4 +1,4 @@
-class Perl6::Maven::Pages;
+unit class Perl6::Maven::Pages;
 
 use Perl6::Maven::Page;
 use Perl6::Maven::Tools;

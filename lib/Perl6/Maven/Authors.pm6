@@ -1,4 +1,4 @@
-class Perl6::Maven::Authors;
+unit class Perl6::Maven::Authors;
 
 has $.source_dir;
 has %.authors;

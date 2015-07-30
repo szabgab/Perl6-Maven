@@ -1,4 +1,4 @@
-class Perl6::Maven::Atom::Author;
+unit class Perl6::Maven::Atom::Author;
 
 has $.name;
 has $.email;

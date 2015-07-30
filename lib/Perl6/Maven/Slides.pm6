@@ -1,5 +1,5 @@
 use Perl6::Maven::Pages;
-class Perl6::Maven::Slides is Perl6::Maven::Pages;
+unit class Perl6::Maven::Slides is Perl6::Maven::Pages;
 
 has %.slides;
 
