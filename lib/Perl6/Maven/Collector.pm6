@@ -12,8 +12,11 @@ my %.indexes;
 # indexes is a global hash of all the indexes
 method add_index(%index) {
 	for %index.keys.sort( { lc $_ } ) -> $k {
-		my $h = %index{$k}.flat[0];
-		%.indexes{$k}.push( $h );
+		if (not %.indexes{$k}:exists) {
+			%.indexes{$k} = [];
+		}
+		my %h = %index{$k};
+		%.indexes{$k}.push: %h;
 	}
 	return;
 }
