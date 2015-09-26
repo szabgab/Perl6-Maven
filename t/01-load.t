@@ -1,7 +1,6 @@
 use v6;
 use Test;
 
-
 my @modules;
 
 sub traverse($dir = 'lib') {
@@ -21,7 +20,6 @@ traverse();
 
 plan @modules.elems;
 for @modules -> $module {
-	try require $module;
-	ok !$!, $module;
-	
+	try EVAL "use $module";
+	ok !$!, $module or diag $!;
 }
