@@ -7,7 +7,7 @@ sub traverse($dir = 'lib') {
     my @todo = $dir.IO;
     while @todo {
         for @todo.pop.dir -> $path {
-			if $path.f {
+			if $path.f and $path.Str ~~ /\.pm6$/ {
             	@modules.push: $path.Str.substr(4).subst(/\//, '::', :g).subst(/\.pm6?$/, '');
 			}
 
