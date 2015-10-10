@@ -1,3 +1,6 @@
 time perl6 -Ilib script/generate.p6 --indir=/home/gabor/work/perl6maven.com --outdir=/home/gabor/work/perl6maven-live.com/ $*
 # time perl6 -Ilib script/generate.p6 --indir=/home/gabor/work/perl6maven.com --outdir=/home/gabor/tmp/perl6maven/
 
+
+# time perl6 -Ilib script/generate.p6 --indir=/vagrant/perl6maven.com --outdir=/home/vagrant/perl6maven-live.com/ $*
+
