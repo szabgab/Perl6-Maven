@@ -4,9 +4,9 @@ branches:
 language: perl6
 perl6:
   - latest
-  - 2015.07
+  - 2015.09
 install:
   - rakudobrew build-panda
-  #- panda install Template::Mojo
+  - panda install Template::Mojo
   - panda intsall HTTP::Easy
 #  - panda install URI Template::Mojo HTTP::Easy Template::Mustache
