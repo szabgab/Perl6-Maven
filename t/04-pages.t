@@ -1,7 +1,7 @@
 use v6;
 use Test;
 
-plan 12;
+plan 13;
 
 use Perl6::Maven::Pages;
 use Perl6::Maven::Authors;
@@ -34,6 +34,15 @@ isa-ok $p, 'Perl6::Maven::Pages';
 $p.read_pages;
 
 my $pages = Perl6::Maven::Collector.get_pages;
+
+my $archive = Perl6::Maven::Collector.get_archive();
+#diag $archive;
+my %expected_archive = "title" => "One", "date" => "2012-07-04", "url" => "one";
+is-deeply $archive, [$%expected_archive];
+#my $archive_json = Perl6::Maven::Collector.get_archive_json();
+#diag $archive_json;
+
+
 #diag @pages.perl;
 is-deeply $pages[0].params.keys.sort,
     ("abstract",  "archive", "author", "author_img", "author_name", "comments", "content", "date", "google_profile_link",

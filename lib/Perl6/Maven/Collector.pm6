@@ -93,17 +93,21 @@ method archived_pages() {
 	return %pages.values.grep({ $_.params<archive> }).sort({ $^b.params<timestamp> cmp $^a.params<timestamp> });
 }
 
-method get_archive_json() {
+method get_archive() {
 	my @p = self.archived_pages();
 	my @data;
 	for @p -> $e {
-		@data.push( {
+		@data.push: ${
 			url => $e.params<url>,
 			title => $e.params<title>,
 			date => $e.params<date>,
-		} );
+		};
 	}
-	return to-json( @data.item );
+	return @data.item;
+}
+
+method get_archive_json() {
+	return to-json( self.get_archive() );
 }
 
 method create_archive_page($json) {
