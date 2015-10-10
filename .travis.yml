@@ -9,4 +9,5 @@ install:
   - rakudobrew build-panda
   - panda install Template::Mojo
   - panda intsall HTTP::Easy
+  - panda install JSON::Tiny
 #  - panda install URI Template::Mojo HTTP::Easy Template::Mustache
