@@ -15,8 +15,7 @@ method add_index(%index) {
 		if (not %.indexes{$k}:exists) {
 			%.indexes{$k} = [];
 		}
-		my %h = %index{$k};
-		%.indexes{$k}.push: %h;
+		%.indexes{$k}.push: %index{$k};
 	}
 	return;
 }

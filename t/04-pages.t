@@ -38,7 +38,7 @@ my $pages = Perl6::Maven::Collector.get_pages;
 my $archive = Perl6::Maven::Collector.get_archive();
 #diag $archive;
 my %expected_archive = "title" => "One", "date" => "2012-07-04", "url" => "one";
-is-deeply $archive, [$%expected_archive];
+is-deeply $archive, [$%expected_archive], 'get_archive';
 #my $archive_json = Perl6::Maven::Collector.get_archive_json();
 #diag $archive_json;
 
@@ -67,9 +67,9 @@ my $expected_sitemap = '<?xml version="1.0" encoding="UTF-8"?>
 is $sitemap, $expected_sitemap, 'sitemap';
 
 is-deeply Perl6::Maven::Collector.indexes, {
-    "arrays" => [{"url" => "/one", "title" => "One"}],
-    "uniq" => [{"url" => "/one", "title" => "One"}],
-    "unique" => [{"url" => "/one", "title" => "One"}]
+    "arrays" => [[{"url" => "/one", "title" => "One"},],],
+    "uniq" => [[{"url" => "/one", "title" => "One"},],],
+    "unique" => [[{"url" => "/one", "title" => "One"},],]
 }, 'indexes';
 
 # vim: ft=perl6

@@ -26,7 +26,6 @@ method save_pages(&path, $all) {
 method read_pages() {
 	my %index;
 
-
 	my @files = dir("$.source_dir").map({ $_.basename });
 	
 	debug('process pages of ' ~ @files.elems ~ ' files: ' ~ @files.perl);
@@ -54,7 +53,11 @@ method read_pages() {
 		# TODO how do I iterate over the array elents other than this work-around?
 		for 0 .. $page.params<keywords>.elems -1  -> $i {
 			my $k = $page.params<keywords>[$i];
-			%index{$k}.push({ url => '/' ~ $page.params<url> , title => $page.params<title> });
+			if (not %index{$k}:exists) {
+				%index{$k} = [];
+			}
+			my %h = url => '/' ~ $page.params<url> , title => $page.params<title>;
+			%index{$k}.push: %h,;
 		}
 	}
 

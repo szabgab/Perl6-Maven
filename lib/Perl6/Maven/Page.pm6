@@ -33,7 +33,7 @@ method read_file($source_file, $outfile) {
 					%.params<title> = $value.Str;
 				}
 				when 'keywords' {
-					%.params<keywords>.push($value.Str.split(/\s*\,\s*/));
+					%.params<keywords>.append($value.Str.split(/\s*\,\s*/));
 				}
 				when 'timestamp' {
 					%.params<timestamp> = $value.Str;
