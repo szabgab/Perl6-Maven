@@ -1,0 +1,14 @@
+{
+    "name"        : "Perl6::Maven",
+    "version"     : "*",
+    "description" : "Content management system used by the Perl6Maven.com site",
+    "depends"     : [ "Bailador", "JSON::Tiny" ] 
+    "authors" : [
+        "Gabor Szabo",
+    ],
+    "support" : {
+        "bugtracker" : "https://github.com/szabgab/Perl6-Maven/issues",
+        "source" : "git://github.com/szabgab/Perl6-Maven.git"
+    },
+    "source-url"  : "git://github.com/szabgab/Perl6-Maven.git"
+}
