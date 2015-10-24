@@ -12,10 +12,10 @@ use Perl6::Maven::Page;
 multi MAIN(
 	Str  :$source!,
 	Str  :$meta!,
+	Int  :$limit = 1,
 	) {
 
-	my $counter = 30;
-
+	my $counter = $limit;
 
 	read_config($source);
 	my $authors = Perl6::Maven::Authors.new( source_dir => $source);

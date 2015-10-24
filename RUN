@@ -1,4 +1,4 @@
 #perl6 -I /home/gabor/rakudo-star-2015.09/install/share/perl6/site/lib/ -I/home/gabor/work/Bailador/lib  -Ilib app.pl --source=/home/gabor/work/perl6maven.com/ --meta=/home/gabor/work/perl6maven-live.com/
 #perl6 -I /home/gabor/rakudo-star-2015.09/install/share/perl6/site/lib/ -Ilib app.pl --source=/home/gabor/work/perl6maven.com/ --meta=/home/gabor/work/perl6maven-live.com/
 #perl6 -I /home/gabor/rakudo/install/share/perl6/site/lib/ -Ilib app.pl --source=/home/gabor/work/perl6maven.com/ --meta=/home/gabor/work/perl6maven-live.com/
-perl6 -Ilib app.pl --source=/home/gabor/work/perl6maven.com/ --meta=/home/gabor/work/perl6maven-live.com/
+perl6 -Ilib app.pl --source=/home/gabor/work/perl6maven.com/ --meta=/home/gabor/work/perl6maven-live.com/ --limit=30
