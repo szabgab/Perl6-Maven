@@ -1,5 +1,6 @@
 use v6;
 use Test;
+use lib 'lib';
 
 my @modules;
 
@@ -20,6 +21,7 @@ traverse();
 
 plan @modules.elems;
 for @modules -> $module {
+	note("# $module");
 	try EVAL "use $module";
 	ok !$!, $module or diag $!;
 }
