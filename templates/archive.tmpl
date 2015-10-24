@@ -1,7 +1,7 @@
 % my (%h) = @_;
 <%= Template::Mojo.new(slurp "templates/include/header.tmpl").render(%h); %>
 
-<h1>Archive</h1>
+<h1>Perl 6 Maven Archive</h1>
 
 <ul>
 % for %h<pages>.values -> $p {
