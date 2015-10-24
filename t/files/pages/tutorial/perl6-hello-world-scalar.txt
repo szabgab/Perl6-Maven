@@ -1,0 +1,38 @@
+=title Hello World - scalar variables
+=timestamp 2012-01-01T01:02:02
+=author szabgab
+=keywords $, say, my
+=status show
+
+Strings can be stored in so called scalar variables.
+Each such variable starts with a <emp>$</emp> sign and then alphanumeric characters, underscore or dash.
+Before using such a variable the first time one has to declare it by the <emp>my</emp> keyword.
+
+<code lang="perl6">
+my $this_is_a_variable;
+my $ThisIsAnotherVariableButWeDontLikeItSoMuch;
+my $this-is-a-variable;
+</code>
+
+Variables are case sensitive.
+
+<code lang="perl6">
+my $h;
+my $H;
+</code>
+
+<include file="tutorial/scalars/hello_world_variable.p6" />
+
+By default scalar variables have no specific types but later we will see how
+can we restrict the values a scalar can hold to a number or to any other type.
+
+One can also declare a variable without giving it an inital value:
+
+<code lang="perl6">
+my $x;
+</code>
+
+In such case the value of the variable will be <b>Any()</b> which
+is just case of being not <b>defined</b>.
+
+

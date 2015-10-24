@@ -1,0 +1,18 @@
+=title Other resources
+=timestamp 2012-01-01T01:01:02
+=author szabgab
+=keywords IRC, mailing list
+=status show
+
+There are lots of free resources for learning Perl 6. Probably the most central place is the <a href="http://www.perl6.org/">Perl 6 community site</a>,
+that has lot of other links.
+
+<ul>
+  <li><a href="http://doc.perl6.org/">Perl 6 documentation</a> evolving quickly</li>
+  <li><a href="http://perlgeek.de/blog-en/perl-5-to-6/">The Perl 6 tutorial blogs</a> by Moritz Lenz</li>
+  <li>The most active place to ask about Perl 6 is the <a href="http://www.perl6.org/community/irc">#perl6 IRC channel</a></li>
+  <li>If you prefer mailing list then I'd recommend the perl6-users mailing list. Send an empty e-mail to perl6-users-subscribe@perl.org and follow the instructions. Also check out the <a href="http://www.nntp.perl.org/group/perl.perl6.users/">archive of the Perl 6 users mailing list</a></li>
+  <li><a href="http://learnxinyminutes.com/docs/perl6/">Learn X in Y minutes</a> Where X=perl6</li>
+</ul>
+
+The Rakudo Star distribution that we are going to use also includes a draft version of the <b>Using Perl 6</b> book in the <b>docs/</b> folder. Check it out.

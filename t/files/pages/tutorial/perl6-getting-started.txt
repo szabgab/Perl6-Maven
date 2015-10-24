@@ -1,0 +1,20 @@
+=title Getting started
+=timestamp 2012-01-01T01:01:01
+=author szabgab
+=keywords Rakudo, MoarVM, JVM, Niecza, CLR, Perlito, Pugs
+=status show
+
+Perl 6 is a specification and a set of tests.
+Any compiler that passes all the tests is considered to be a valid Perl 6 compiler.
+There are several compilers for Perl 6.
+As of today, they are all partial and implement only a subset of the language.
+
+<ul>
+  <li><a href="http://rakudo.org/">Rakudo</a> can run on any one of the following back-ends: <a href="http://moarvm.com/">MoarVM</a>, the <a href="http://parrot.org/">Parrot Virtual Machine</a>, <a href="http://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a>. It is currently the most promising implementation.</li>
+  <li><a href="http://github.com/sorear/niecza">Niecza</a> is a compiler targetting the Common Language Runtime (.NET and Mono).</li>
+  <li><a href="http://perlito.org/">Perlito</a> can be tried online as it can compile some Perl 6 code to Javascript and run in a browser.</li>
+  <li><a href="http://pugscode.org/">Pugs</a> written in Haskell was the first usable implementation, but it is currently only minimally maintained.</li>
+</ul>
+
+We are going to use Rakudo with MoarVM.
+
