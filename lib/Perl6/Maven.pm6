@@ -5,6 +5,7 @@ use Perl6::Maven::Tools;
 use Perl6::Maven::Collector;
 use Perl6::Maven::Authors;
 use Perl6::Maven::Page;
+use JSON::Tiny;
 
 # The web application
 
@@ -26,7 +27,7 @@ method run () {
 		return Perl6::Maven::Collector.create_main_page( $json );
 	}
 
-	get any('/atom', '/sitemap.xml', '/index.json') => sub {
+	get '/atom' => sub {
 		$counter--;
 		free-memory() if $counter <= 0;
 		#return request.path;
@@ -34,7 +35,29 @@ method run () {
 		if $path.IO.e {
 			return open($path).slurp-rest;
 		}
-	}
+    }
+	get '/sitemap.xml' => sub {
+		$counter--;
+		free-memory() if $counter <= 0;
+		#return request.path;
+		my $path = $.meta ~ request.path;
+		if $path.IO.e {
+			return open($path).slurp-rest;
+		}
+    }
+	get '/index.json' => sub {
+		$counter--;
+		free-memory() if $counter <= 0;
+		#return request.path;
+		my $path = $.meta ~ request.path;
+		if $path.IO.e {
+			return open($path).slurp-rest;
+		}
+    }
+
+
+
+
 
 	get '/index' => sub {
 		$counter--;
