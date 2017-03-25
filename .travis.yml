@@ -5,6 +5,8 @@ language: perl6
 sudo: false
 perl6:
   - latest
-#install:
-  - zef install Bailador
+install:
+  - rakudobrew build-panda
+  - panda installdeps .
+  #- zef install Bailador
   # "JSON::Tiny", "LWP::Simple" ],
