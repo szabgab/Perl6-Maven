@@ -6,5 +6,5 @@ sudo: false
 perl6:
   - latest
 #install:
-  #- zef install Bailador
+  - zef install Bailador
   # "JSON::Tiny", "LWP::Simple" ],
