@@ -11,68 +11,43 @@ use JSON::Tiny;
 
 has $.source;
 has $.meta;
-has $.limit;
 
 method run () {
-	my $counter = $.limit;
-
 	read_config($.source);
 	my $authors = Perl6::Maven::Authors.new( source_dir => $.source);
 	$authors.read_authors;
 
 
 	get '/' => sub {
-		$counter--;
 		my $json = "$.meta/main.json".IO.slurp;
 		return Perl6::Maven::Collector.create_main_page( $json );
 	}
 
 	get '/atom' => sub {
-		$counter--;
-		free-memory() if $counter <= 0;
-		#return request.path;
 		my $path = $.meta ~ request.path;
-		if $path.IO.e {
-			return open($path).slurp-rest;
-		}
+		return open($path).slurp-rest;
     }
 	get '/sitemap.xml' => sub {
-		$counter--;
-		free-memory() if $counter <= 0;
-		#return request.path;
 		my $path = $.meta ~ request.path;
-		if $path.IO.e {
-			return open($path).slurp-rest;
-		}
+		return open($path).slurp-rest;
     }
 	get '/index.json' => sub {
-		$counter--;
-		free-memory() if $counter <= 0;
-		#return request.path;
 		my $path = $.meta ~ request.path;
-		if $path.IO.e {
-			return open($path).slurp-rest;
-		}
+		return open($path).slurp-rest;
     }
-
-
-
 
 
 	get '/index' => sub {
-		$counter--;
 		my $json = "$.meta/index.json".IO.slurp;
 		return Perl6::Maven::Collector.create_index_page( $json );
 	}
 
 	get '/archive' => sub {
-		$counter--;
 		my $json = "$.meta/archive.json".IO.slurp;
 		return Perl6::Maven::Collector.create_archive_page( $json );
 	}
 
 	get '/tutorial/toc' => sub {
-		$counter--;
 		my $json = "$.meta/tutorial/slides.json".IO.slurp;
 		return Perl6::Maven::Collector.create_toc_page( $json );
 	}
@@ -86,7 +61,6 @@ method run () {
 	my $include_dir = "$.source/files/";
 
 	get / '/' (.+) / => sub ($file is copy) {
-		$counter--;
 		my $start = now;
 		if $file ~~ /\/$/ {
 			$file ~= 'main';
@@ -124,18 +98,11 @@ method run () {
 
 		warning("Path to '$file' not found");
 
-		free-memory() if $counter <= 0;
 		status 404;
 		return 'Not found';
 	}
 
 	baile;
-}
-
-sub free-memory {
-	# A temporary solution till Rakudo learns how to free memory itself
-	debug('Viva la memoria!');
-	exit;
 }
 
 # vim: ft=perl6
