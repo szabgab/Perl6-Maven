@@ -19,36 +19,36 @@ method run () {
 
 
 	get '/' => sub {
-		my $json = "$.meta/main.json".IO.slurp;
+		my $json = slurp("$.meta/main.json");
 		return Perl6::Maven::Collector.create_main_page( $json );
 	}
 
 	get '/atom' => sub {
 		my $path = $.meta ~ request.path;
-		return open($path).slurp-rest;
+		return slurp($path);
     }
 	get '/sitemap.xml' => sub {
 		my $path = $.meta ~ request.path;
-		return open($path).slurp-rest;
+		return slurp($path);
     }
 	get '/index.json' => sub {
 		my $path = $.meta ~ request.path;
-		return open($path).slurp-rest;
+		return slurp($path);
     }
 
 
 	get '/index' => sub {
-		my $json = "$.meta/index.json".IO.slurp;
+		my $json = slurp("$.meta/index.json");
 		return Perl6::Maven::Collector.create_index_page( $json );
 	}
 
 	get '/archive' => sub {
-		my $json = "$.meta/archive.json".IO.slurp;
+		my $json = slurp("$.meta/archive.json");
 		return Perl6::Maven::Collector.create_archive_page( $json );
 	}
 
 	get '/tutorial/toc' => sub {
-		my $json = "$.meta/tutorial/slides.json".IO.slurp;
+		my $json = slurp("$.meta/tutorial/slides.json");
 		return Perl6::Maven::Collector.create_toc_page( $json );
 	}
 
@@ -65,7 +65,7 @@ method run () {
 		if $file ~~ /\/$/ {
 			$file ~= 'main';
 		}
-		my $lookup = from-json open("$.meta/tutorial/lookup.json").slurp-rest;
+		my $lookup = from-json slurp("$.meta/tutorial/lookup.json");
 		#return $lookup.perl;
 
 		my $txt_file = "$.source/pages/$file.txt";
@@ -89,7 +89,7 @@ method run () {
 
 		if $file ~~ /tutorial\/(.*)/ {
 			my $page = $/[0];
-			my $json = "$.meta/tutorial/slides.json".IO.slurp;
+			my $json = slurp("$.meta/tutorial/slides.json");
 			my $slides_data = from-json $json;
 			if $slides_data{$page} {
 				return Perl6::Maven::Collector.create_chapters_page( $slides_data{$page} );
