@@ -6,6 +6,7 @@ has %.slides;
 use Perl6::Maven::Collector;
 use Perl6::Maven::Tools;
 
+use JSON::Tiny;
 
 # AFAIK There is no real YAML reader for Perl 6 yet, so this implements the subset we use.
 method read_yml() {

@@ -8,6 +8,7 @@ use Perl6::Maven::Pages;
 use Perl6::Maven::Collector;
 use Perl6::Maven::Slides;
 use Perl6::Maven::Authors;
+use JSON::Tiny;
 
 multi MAIN(Bool :$help!) {
 	say 'no param' if  not $help;
