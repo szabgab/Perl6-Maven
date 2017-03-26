@@ -10,6 +10,7 @@ has %.params;
 method read_file($source_file, $outfile) {
 	debug("Opening file '$source_file'");
 	my $fh = open $source_file, :r;
+	LEAVE $fh.close;
 	%.params = (
 		content   => '',
 		title     => '',

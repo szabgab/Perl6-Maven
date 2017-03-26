@@ -22,8 +22,8 @@ sub log {
 	my ($level, @msg) = @_;
 	mkdir 'logs';
 	my $fh = open 'logs/log.txt', :a;
+	LEAVE $fh.close;
 	$fh.say("$level: ", @_);
-	$fh.close;
 }
 
 sub rdir($path) is export {
@@ -51,8 +51,8 @@ sub save_file($outfile, $content) is export {
 	my $file = $outfile;
 	mkpath dirname $file;
 	my $out = open $file, :w;
+	LEAVE $out.close;
 	$out.print($content);
-	$out.close; # TODO without calling close the file remained empty
 	return;
 }
 
@@ -102,6 +102,7 @@ sub tree($dir) is export {
 
 sub read_config($dir) is export {
 	my $fh = open "$dir/config.ini", :r;
+	LEAVE $fh.close;
 	for $fh.lines -> $line {
 		my ($key, $value) = $line.split('=');
 		%config{$key} = $value;

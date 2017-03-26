@@ -13,6 +13,7 @@ method read_yml() {
 	# temporary hard-coding
 	my $file = "$.source_dir/pages.yml";
 	my $fh = open $file, :r;
+	LEAVE $fh.close;
 	my $id;
 	for $fh.lines -> $line {
 		#if $line ~~ /^\- id\: ([\w\-]+)$/ {
