@@ -41,7 +41,7 @@ sub process_template($template, %params) is export {
 	%params<description> //= '';
 	%params<author> //= '';
 
-	my $tmpl = slurp("templates/$template")
+	my $tmpl = slurp("templates/$template");
 	return Template::Mojo.new($tmpl).render(%params);
 
 }
