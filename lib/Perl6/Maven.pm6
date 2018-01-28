@@ -5,7 +5,7 @@ use Perl6::Maven::Tools;
 use Perl6::Maven::Collector;
 use Perl6::Maven::Authors;
 use Perl6::Maven::Page;
-use JSON::Tiny;
+#use JSON::Tiny;
 
 # The web application
 

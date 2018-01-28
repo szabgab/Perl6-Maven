@@ -18,8 +18,8 @@ method read_file($source_file, $outfile) {
 		abstract  => '',
 		keywords  => [],
 		kw        => [],
-		archive   => config<archive>,
-		comments  => config<comments>,
+		archive   => get_config<archive>,
+		comments  => get_config<comments>,
 		show_index_button => 1,
 	);
 
@@ -117,7 +117,7 @@ method read_file($source_file, $outfile) {
 	}
 	#die "No keywords found in $source_file" if not %.params<keywords>;
 
-	%.params<permalink> = "{config<url>}/$.outdir$outfile";
+	%.params<permalink> = "{get_config<url>}/$.outdir$outfile";
 	%.params<url> = "$.outdir$outfile";
 
 	# TODO how do I iterate over the array elents other than this work-around?

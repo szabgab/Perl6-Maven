@@ -10,7 +10,7 @@ use Perl6::Maven::Tools;
 my $source_dir = 't/files';
 
 read_config($source_dir);
-is-deeply config, {"site_title" => "Perl 6 Maven", "front_page_limit" => "5", "comments" => "1", "url" => "http://perl6maven.com", "archive" => "0"}, 'config';
+is-deeply get_config, {"site_title" => "Perl 6 Maven", "front_page_limit" => "5", "comments" => "1", "url" => "http://perl6maven.com", "archive" => "0"}, 'config';
 
 my $authors = Perl6::Maven::Authors.new( source_dir => $source_dir);
 $authors.read_authors;

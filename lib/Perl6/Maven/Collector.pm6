@@ -33,7 +33,7 @@ method create_index_page( $json ) {
 	}
 
 	my %params = (
-		title    => config<site_title> ~ ' Index',
+		title    => get_config<site_title> ~ ' Index',
 		keywords => @index.item,
 	);
 	return process_template('index.tmpl', %params);
@@ -116,7 +116,7 @@ method create_archive_page($json) {
 method create_main_page($json) {
 	my $front = from-json ($json);
 	my %params = (
-		title => config<site_title>,
+		title => get_config<site_title>,
 		pages => $front,
 	);
 	return process_template('main.tmpl', %params);
@@ -132,7 +132,7 @@ method get_main_json() {
 		}
 		$count++;
 		@front.push($page.params.item);
-		last if $count >= config<front_page_limit>;
+		last if $count >= get_config<front_page_limit>;
 	}
 	return to-json( @front.item );
 }
@@ -141,9 +141,9 @@ method create_atom_feed() {
 	my @archived_pages = self.archived_pages;
 	my $latest = @archived_pages[0];
 
-	my $url = config<url>;
+	my $url = get_config<url>;
 	my $atom = Perl6::Maven::Atom.new(
-		title    => config<site_title>,
+		title    => get_config<site_title>,
 		id       => "$url/",
 		self     => "$url/atom",
 		updated  => $latest.params<timestamp>,

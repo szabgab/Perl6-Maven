@@ -110,7 +110,7 @@ sub read_config($dir) is export {
 	#debug(%config.perl);
 }
 
-sub config() is export {
+sub get_config() is export {
 	return %config;
 }
 
