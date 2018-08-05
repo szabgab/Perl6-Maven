@@ -5,7 +5,16 @@
     "description" : "Content management system used by the Perl6Maven.com site",
     "depends"     : [ "Bailador", "JSON::Tiny", "LWP::Simple" ],
     "provides" : {
-        "Perl6::Maven" : "lib/Perl6/Maven.pm"
+        "Perl6::Maven" : "lib/Perl6/Maven.pm6",
+        "Perl6::Maven::Atom" : "lib/Perl6/Maven/Atom.pm6",
+        "Perl6::Maven::Atom::Author" : "lib/Perl6/Maven/Atom/Author.pm6",
+        "Perl6::Maven::Atom::Entry" : "lib/Perl6/Maven/Atom/Entry.pm6",
+        "Perl6::Maven::Authors" : "lib/Perl6/Maven/Authors.pm6",
+        "Perl6::Maven::Collector" : "lib/Perl6/Maven/Collector.pm6",
+        "Perl6::Maven::Page" : "lib/Perl6/Maven/Page.pm6",
+        "Perl6::Maven::Pages" : "lib/Perl6/Maven/Pages.pm6",
+        "Perl6::Maven::Slides" : "lib/Perl6/Maven/Slides.pm6",
+        "Perl6::Maven::Tools" : "lib/Perl6/Maven/Tools.pm6"
     },
     "authors" : [
         "Gabor Szabo"

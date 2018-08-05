@@ -15,7 +15,6 @@ note('# Check if the right files were generated');
 
 {
 	my $data = from-json "$dir/archive.json".IO.slurp;
-	#note("# " ~ $data.perl);
 	is-deeply $data, [
 		{:date("2012-07-04"), :title("One"), :url("one")},
 		{:date("2012-01-01"), :title("Hello World - scalar variables"), :url("tutorial/perl6-hello-world-scalar")},
@@ -26,7 +25,6 @@ note('# Check if the right files were generated');
 
 {
 	my $data = from-json "$dir/index.json".IO.slurp;
-	#note("# " ~ $data.perl);
 	is-deeply $data, {
 		"\$" => $[[ {:title("Hello World - scalar variables"), :url("/tutorial/perl6-hello-world-scalar")},],], 
 		:CLR($[[{:title("Getting started"), :url("/tutorial/perl6-getting-started")},],]),
@@ -48,7 +46,6 @@ note('# Check if the right files were generated');
 
 {
 	my $data = from-json "$dir/main.json".IO.slurp;
-	#note("# " ~ $data.perl);
 	is-deeply $data, $[{
 		:abstract("<p>\nHow to get rid of duplicate values in an array in Perl 6?\n<p>\n"),
 		:archive("1"),
@@ -80,8 +77,7 @@ note('# Check if the right files were generated');
 
 {
 	my $data = from-json "$dir/tutorial/slides.json".IO.slurp;
-	#note("# " ~ $data.perl);
-	is-deeply $data, {
+	ok $data == {
 		:perl6-introduction(${
 			:next_file("tutorial/perl6-getting-started"),
 			:next_title("Getting started"),
@@ -121,7 +117,6 @@ note('# Check if the right files were generated');
 
 {
 	my $data = from-json "$dir/tutorial/lookup.json".IO.slurp;
-	#note("# " ~ $data.perl);
 	is-deeply $data, {
 		:one(${:next_file(Any), :next_title(Any), :prev_file(Any), :prev_title(Any), :title("One")}),
 		"tutorial/perl6-getting-started" => ${
@@ -170,3 +165,4 @@ note('# Check if the right files were generated');
 # 	ok $html.index('<h1>Perl 6 Maven Archive</h1>');
 # }
 
+done-testing;
